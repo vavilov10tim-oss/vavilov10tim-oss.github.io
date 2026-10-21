@@ -89,15 +89,6 @@
         }
         .name { font-weight: 800; font-size: 18px; letter-spacing: 0.5px; }
         .name span { color: var(--red); text-shadow: 0 0 18px rgba(255,45,61,0.6); }
-        nav { display: flex; align-items: center; gap: 22px; }
-        nav a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color 0.2s ease; }
-        nav a:hover { color: var(--text); }
-        .nav-cta {
-            color: #fff !important; border: 1px solid rgba(255,45,61,0.5);
-            padding: 8px 16px; border-radius: 999px; background: rgba(255,45,61,0.12);
-            transition: background 0.2s ease, box-shadow 0.2s ease;
-        }
-        .nav-cta:hover { background: rgba(255,45,61,0.25); box-shadow: 0 0 24px rgba(255,45,61,0.4); }
 
         .progress-bar {
             position: fixed; top: 0; left: 0; height: 2px; width: 100%;
@@ -429,16 +420,161 @@
             .contact-grid { grid-template-columns: 1fr; gap: 26px; }
             section { padding: 64px 0; }
         }
+
+        /* МЕНЮ: имя + кнопка, ниже полоса разделов с подсветкой текущего */
+        header .head-row { padding-top: 12px; padding-bottom: 8px; flex-wrap: nowrap; }
+        a.name { color: inherit; text-decoration: none; white-space: nowrap; }
+        .head-cta {
+            flex: none; padding: 8px 16px; border-radius: 999px; font-size: 14px; font-weight: 700;
+            color: #fff; text-decoration: none; background: linear-gradient(135deg, var(--red), var(--red-deep));
+            box-shadow: 0 0 20px rgba(255,45,61,0.35); transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .head-cta:hover { box-shadow: 0 0 30px rgba(255,45,61,0.6); transform: translateY(-1px); }
+        .chips { position: relative; }
+        .chips::after {
+            content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 36px; pointer-events: none;
+            background: linear-gradient(90deg, transparent, rgba(7,5,6,0.95));
+        }
+        header .chips-inner {
+            display: flex; flex-wrap: nowrap; gap: 6px; padding-top: 0; padding-bottom: 10px; justify-content: flex-start;
+            overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+        }
+        .chips-inner::-webkit-scrollbar { display: none; }
+        .chip {
+            flex: none; padding: 7px 14px; border-radius: 999px; font-size: 14px; white-space: nowrap;
+            color: var(--muted); text-decoration: none; border: 1px solid var(--line); background: var(--panel);
+            transition: color 0.2s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .chip:hover { color: #fff; border-color: rgba(255,255,255,0.25); }
+        .chip.active { color: #fff; background: rgba(255,45,61,0.18); border-color: rgba(255,45,61,0.6); box-shadow: 0 0 16px rgba(255,45,61,0.3); }
+        section[id], footer[id] { scroll-margin-top: 112px; }
+
+        /* КРЮЧКИ МЕЖДУ БЛОКАМИ */
+        .hook { margin-top: 30px; text-align: center; }
+        .hook a { color: var(--muted); text-decoration: none; font-size: 15px; display: inline; transition: color 0.2s ease; }
+        .hook a:hover { color: #fff; }
+        .hook a span { display: inline-block; margin-left: 6px; color: var(--red); animation: nudge 1.6s ease-in-out infinite; }
+        @keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+        /* КАЛЬКУЛЯТОР ПОТЕРЬ */
+        .calc { display: grid; grid-template-columns: 1.1fr 1fr; gap: 22px; align-items: stretch; }
+        .calc-in { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; display: flex; flex-direction: column; gap: 22px; }
+        .field label { display: flex; justify-content: space-between; gap: 12px; font-size: 15px; margin-bottom: 10px; color: #e3dcdb; }
+        .field output { font-weight: 800; color: #fff; white-space: nowrap; }
+        .field small { display: block; margin-top: 6px; color: var(--muted); font-size: 12.5px; }
+        input[type=range] {
+            -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 6px; outline: none; cursor: pointer;
+            background: linear-gradient(90deg, var(--red) 0 var(--p, 50%), rgba(255,255,255,0.12) var(--p, 50%) 100%);
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff;
+            border: 4px solid var(--red); box-shadow: 0 0 16px rgba(255,45,61,0.7); transition: transform 0.15s ease;
+        }
+        input[type=range]:active::-webkit-slider-thumb { transform: scale(1.2); }
+        input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid var(--red); box-shadow: 0 0 16px rgba(255,45,61,0.7); }
+        input[type=range]:focus-visible { box-shadow: 0 0 0 3px rgba(255,45,61,0.4); }
+        .calc-out {
+            position: relative; overflow: hidden; border-radius: var(--radius); padding: 28px;
+            background: radial-gradient(circle at 80% 0%, rgba(255,45,61,0.35), transparent 60%), #120a0c;
+            border: 1px solid rgba(255,45,61,0.45); box-shadow: 0 0 70px rgba(255,45,61,0.18);
+            display: flex; flex-direction: column; justify-content: center; gap: 8px;
+        }
+        .calc-out .lbl { color: #d8cfcd; font-size: 15px; }
+        .loss { font-size: 54px; font-weight: 800; letter-spacing: -1.5px; line-height: 1; color: var(--red); text-shadow: 0 0 34px rgba(255,45,61,0.55); font-variant-numeric: tabular-nums; }
+        .loss-year { color: #fff; font-size: 17px; font-weight: 600; }
+        .formula { color: var(--muted); font-size: 13px; margin-top: 4px; }
+        .calc-out .btn { margin-top: 14px; align-self: flex-start; }
+        .calc-note { margin-top: 12px; color: var(--muted); font-size: 13px; }
+
+        /* ДЛЯ КОГО */
+        .niches { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+        .niche { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; transition: transform 0.3s var(--ease), border-color 0.3s ease; }
+        .niche:hover { transform: translateY(-4px); border-color: rgba(255,45,61,0.4); }
+        .niche .em { font-size: 28px; line-height: 1; margin-bottom: 12px; display: block; }
+        .niche h3 { font-size: 18px; margin-bottom: 10px; }
+        .niche .pain { color: #e8dedc; font-size: 15px; font-style: italic; padding-left: 12px; border-left: 2px solid var(--red); margin-bottom: 12px; }
+        .niche .fix { color: var(--muted); font-size: 14.5px; }
+        .niche .fix b { color: #fff; }
+        .niche-more { margin-top: 16px; color: var(--muted); font-size: 15px; text-align: center; }
+
+        /* КАК РАБОТАЕМ */
+        .steps4 { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; counter-reset: st; }
+        .st { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px 20px 22px; counter-increment: st; }
+        .st::before {
+            content: counter(st); display: flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; border-radius: 50%; margin-bottom: 14px; font-weight: 800; color: #fff;
+            background: linear-gradient(135deg, var(--red), var(--red-deep)); box-shadow: 0 0 20px rgba(255,45,61,0.5);
+        }
+        .st .tag { position: absolute; top: 22px; right: 18px; font-size: 11.5px; font-weight: 700; color: #4ade80; border: 1px solid rgba(74,222,128,0.4); border-radius: 999px; padding: 3px 9px; }
+        .st h3 { font-size: 17px; margin-bottom: 8px; }
+        .st p { color: var(--muted); font-size: 14.5px; }
+        .safe { margin-top: 18px; padding: 16px 20px; border-radius: 14px; background: rgba(74,222,128,0.07); border: 1px solid rgba(74,222,128,0.25); color: #d9f5e3; font-size: 15px; }
+
+        /* ВОПРОСЫ */
+        .faq { display: flex; flex-direction: column; gap: 10px; max-width: 820px; }
+        .faq details { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; transition: border-color 0.25s ease, background 0.25s ease; }
+        .faq details[open] { border-color: rgba(255,45,61,0.45); background: rgba(255,45,61,0.06); }
+        .faq summary { list-style: none; cursor: pointer; padding: 18px 54px 18px 20px; font-weight: 700; font-size: 16px; position: relative; }
+        .faq summary::-webkit-details-marker { display: none; }
+        .faq summary::after {
+            content: "+"; position: absolute; right: 18px; top: 50%; width: 26px; height: 26px; margin-top: -13px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 400;
+            color: #fff; background: rgba(255,45,61,0.2); transition: transform 0.3s var(--ease), background 0.3s ease;
+        }
+        .faq details[open] summary::after { transform: rotate(45deg); background: var(--red); }
+        .faq .ans { padding: 0 20px 18px; color: #cfc6c4; font-size: 15px; animation: ans-in 0.35s var(--ease); }
+        @keyframes ans-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+        /* КНОПКА ВНИЗУ ЭКРАНА НА ТЕЛЕФОНЕ */
+        .sticky-cta {
+            position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 70; display: none;
+            padding: 15px 18px; border-radius: 14px; text-align: center; font-weight: 700; font-size: 15px;
+            color: #fff; text-decoration: none; background: linear-gradient(135deg, var(--red), var(--red-deep));
+            box-shadow: 0 12px 40px rgba(0,0,0,0.6), 0 0 30px rgba(255,45,61,0.45);
+            transform: translateY(140%); transition: transform 0.4s var(--ease);
+        }
+        .sticky-cta.show { transform: none; }
+
+        @media (max-width: 980px) {
+            .calc { grid-template-columns: 1fr; }
+            .steps4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+        }
+        @media (max-width: 640px) {
+            header .head-row { padding-top: 10px; padding-bottom: 6px; }
+            .head-cta { padding: 7px 13px; font-size: 13px; }
+            header .chips-inner { padding-bottom: 9px; gap: 6px; }
+            .chip { padding: 6px 12px; font-size: 13px; }
+            section[id], footer[id] { scroll-margin-top: 100px; }
+            .hook { margin-top: 18px; }
+            .hook a { font-size: 14px; }
+            .calc-in { padding: 18px 16px; gap: 18px; }
+            .field label { font-size: 14px; margin-bottom: 8px; }
+            .calc-out { padding: 20px 18px; }
+            .loss { font-size: 40px; }
+            .loss-year { font-size: 15px; }
+            .calc-out .btn { align-self: stretch; }
+            .niches { grid-template-columns: 1fr; gap: 10px; }
+            .niche { padding: 16px; }
+            .niche .em { font-size: 22px; margin-bottom: 8px; }
+            .niche h3 { font-size: 16px; margin-bottom: 8px; }
+            .niche .pain { font-size: 14.5px; }
+            .steps4 { grid-template-columns: 1fr; gap: 10px; }
+            .st { padding: 16px 16px 16px 66px; min-height: 0; }
+            .st::before { position: absolute; left: 16px; top: 16px; width: 34px; height: 34px; margin: 0; }
+            .st .tag { position: static; display: inline-block; margin-bottom: 6px; }
+            .st h3 { font-size: 16px; margin-bottom: 4px; }
+            .faq summary { font-size: 15px; padding: 15px 50px 15px 16px; }
+            .faq .ans { padding: 0 16px 15px; font-size: 14.5px; }
+            .sticky-cta { display: block; }
+            footer { padding-bottom: 90px; }
+        }
+
         /* ТЕЛЕФОН: компактнее и легче читать */
         @media (max-width: 640px) {
             :root { --muted: #b8afad; --radius: 16px; }
             body { line-height: 1.55; }
             .wrap { padding: 0 16px; }
-            header .wrap { flex-wrap: wrap; gap: 8px; padding-top: 10px; padding-bottom: 10px; }
             .name { font-size: 15px; white-space: nowrap; }
-            nav { width: 100%; justify-content: space-between; gap: 8px; }
-            nav a { font-size: 13.5px; white-space: nowrap; padding: 6px 0; }
-            .nav-cta { padding: 6px 12px; }
 
             .glow { filter: blur(60px); opacity: 0.6; }
             .glow-1, .glow-2, .glow-3 { width: 320px; height: 320px; }
@@ -543,38 +679,45 @@
 <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
 <header>
-    <div class="wrap">
-        <div class="name">ТИМУР <span>ВАВИЛОВ</span></div>
-        <nav>
-            <a class="hide-m" href="#about">Чем занимаюсь</a>
-            <a href="#path">Путь</a>
-            <a href="#next">Дальше</a>
-            <a class="nav-cta" href="#contact">Внедрение</a>
-        </nav>
+    <div class="wrap head-row">
+        <a class="name" href="#top">ТИМУР <span>ВАВИЛОВ</span></a>
+        <a class="head-cta" href="https://t.me/timqaa17">Бесплатный разбор</a>
     </div>
+    <nav class="chips" aria-label="Разделы страницы">
+        <div class="wrap chips-inner" id="chips">
+            <a class="chip" href="#calc">Ваши потери</a>
+            <a class="chip" href="#who">Для кого</a>
+            <a class="chip" href="#next">ИИ-администратор</a>
+            <a class="chip" href="#how">Как работаем</a>
+            <a class="chip" href="#about">Что ещё делаю</a>
+            <a class="chip" href="#faq">Вопросы</a>
+            <a class="chip" href="#path">Обо мне</a>
+            <a class="chip" href="#contact">Связь</a>
+        </div>
+    </nav>
 </header>
 
 <main>
 
-    <section class="hero">
+    <section class="hero" id="top">
         <div class="hero-halo" aria-hidden="true"></div>
         <div class="wrap">
-            <div class="kicker reveal"><span class="dot"></span> 18 лет · сейчас делаю ИИ-администратора</div>
+            <div class="kicker reveal"><span class="dot"></span> ИИ-администратор · ответ за 3 секунды</div>
 
-            <h1 id="heroTitle">ИИ-решения, которые <span class="hot">экономят бизнесу время и деньги</span></h1>
+            <h1 id="heroTitle">Пока менеджер спит, <span class="hot">клиенты уходят к конкурентам</span></h1>
 
-            <p class="reveal">Привет, я Тимур. Делаю ИИ-решения для бизнеса: они берут на себя рутину, ускоряют процессы
-                и экономят компании время и деньги. Здесь коротко о том, с чего я начинал и как к этому пришёл.</p>
+            <p class="reveal">Я Тимур, делаю ИИ-решения для бизнеса. Мой ИИ-администратор отвечает клиентам за секунды,
+                бронирует, отрабатывает «дорого» и не даёт заявкам потеряться. Посчитайте, сколько теряете вы.</p>
 
             <div class="actions reveal">
-                <a class="btn magnetic" href="https://t.me/timqaa17">Обсудить внедрение <span class="arrow">→</span></a>
-                <a class="btn btn-ghost magnetic" href="#path">Как я к этому пришёл</a>
+                <a class="btn magnetic" href="#calc">Посчитать мои потери <span class="arrow">↓</span></a>
+                <a class="btn btn-ghost magnetic" href="https://t.me/timqaa17">Бесплатный разбор</a>
             </div>
 
             <div class="stats reveal">
-                <div class="stat"><b><em data-count="18">18</em> лет</b><span>студент РТУ МИРЭА</span></div>
-                <div class="stat"><b><em data-count="6">6</em>+ проектов</b><span>сделал сам, от идеи до запуска</span></div>
-                <div class="stat"><b><em data-count="500">500</em>+ часов</b><span>уделено ИИ и бизнесу с конца августа</span></div>
+                <div class="stat"><b><em data-count="3">3</em> сек</b><span>время ответа вместо часов</span></div>
+                <div class="stat"><b><em>24/7</em></b><span>без выходных и больничных</span></div>
+                <div class="stat"><b><em data-count="500">500</em>+ часов</b><span>я вложил в ИИ с конца августа</span></div>
             </div>
         </div>
     </section>
@@ -588,11 +731,172 @@
         </div>
     </div>
 
+    <section id="calc">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-num">01 / ВАШИ ПОТЕРИ</div>
+                <h2>Сколько денег вы теряете на медленных ответах</h2>
+                <p>Подвигайте ползунки под свой бизнес. Посчитаем, сколько клиентов уходит, пока им не ответили.</p>
+            </div>
+
+            <div class="calc reveal">
+                <div class="calc-in">
+                    <div class="field">
+                        <label for="cLeads">Заявок и сообщений в день <output id="oLeads">15</output></label>
+                        <input type="range" id="cLeads" min="1" max="100" step="1" value="15">
+                    </div>
+                    <div class="field">
+                        <label for="cMiss">Остаются без быстрого ответа <output id="oMiss">30%</output></label>
+                        <input type="range" id="cMiss" min="5" max="80" step="5" value="30">
+                        <small>Ночь, выходные, менеджер занят или на другой линии</small>
+                    </div>
+                    <div class="field">
+                        <label for="cConv">Из них купили бы, если ответить сразу <output id="oConv">25%</output></label>
+                        <input type="range" id="cConv" min="5" max="60" step="5" value="25">
+                    </div>
+                    <div class="field">
+                        <label for="cCheck">Средний чек <output id="oCheck">5 000 ₽</output></label>
+                        <input type="range" id="cCheck" min="500" max="50000" step="500" value="5000">
+                    </div>
+                </div>
+
+                <div class="calc-out" aria-live="polite">
+                    <div class="lbl">Вы теряете примерно</div>
+                    <div class="loss" id="loss">168 750 ₽</div>
+                    <div class="loss-year">в месяц, или <span id="lossYear">2 025 000 ₽</span> в год</div>
+                    <div class="formula" id="formula">≈ 34 клиента в месяц пишут вам и уходят к тем, кто ответил первым</div>
+                    <a class="btn magnetic" href="https://t.me/timqaa17">Разобрать мои цифры бесплатно <span class="arrow">→</span></a>
+                </div>
+            </div>
+            <p class="calc-note reveal">Это оценка. Точнее посчитаем на бесплатном разборе, по вашим реальным заявкам.</p>
+            <div class="hook reveal"><a href="#who">Где именно теряются эти деньги, зависит от ниши. Найдите свою <span>↓</span></a></div>
+        </div>
+    </section>
+
+    <section id="who">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-num">02 / ДЛЯ КОГО</div>
+                <h2>Узнаёте свой бизнес?</h2>
+                <p>ИИ-администратор нужен всем, кому клиенты пишут в мессенджеры и ждут быстрого ответа.</p>
+            </div>
+
+            <div class="niches">
+                <div class="niche spot reveal d1">
+                    <span class="em">🏡</span><h3>Загородные клубы и базы отдыха</h3>
+                    <p class="pain">«Ночью спросили про домик на выходные, а утром уже забронировали у соседей»</p>
+                    <p class="fix"><b>ИИ</b> сразу показывает свободные домики, тарифы и присылает ссылку на бронь.</p>
+                </div>
+                <div class="niche spot reveal d2">
+                    <span class="em">💅</span><h3>Салоны красоты и барбершопы</h3>
+                    <p class="pain">«Мастера с клиентами, администратор на телефоне, сообщения висят часами»</p>
+                    <p class="fix"><b>ИИ</b> записывает на свободное время к нужному мастеру и напоминает о визите.</p>
+                </div>
+                <div class="niche spot reveal d1">
+                    <span class="em">🦷</span><h3>Стоматологии и клиники</h3>
+                    <p class="pain">«Пациент спросил цену в 22:00 и записался туда, где ответили»</p>
+                    <p class="fix"><b>ИИ</b> рассказывает про услуги и цены и записывает на консультацию.</p>
+                </div>
+                <div class="niche spot reveal d2">
+                    <span class="em">🚗</span><h3>Автосервисы</h3>
+                    <p class="pain">«Пока мастер под машиной, звонки и сообщения остаются без ответа»</p>
+                    <p class="fix"><b>ИИ</b> узнаёт марку и проблему, называет примерную цену и записывает на ремонт.</p>
+                </div>
+            </div>
+            <p class="niche-more reveal">Нет вашей ниши? Если клиенты пишут вам в Telegram или WhatsApp, это сработает и у вас.</p>
+            <div class="hook reveal"><a href="#next">Теперь покажу, как ИИ-администратор возвращает этих клиентов <span>↓</span></a></div>
+        </div>
+    </section>
+
+    <section id="next">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-num">03 / ИИ-АДМИНИСТРАТОР</div>
+                <h2>ИИ-администратор</h2>
+                <p>Вот как он работает в переписке. Клиент сказал «дорого», а бот всё равно довёл его до брони.</p>
+            </div>
+
+            <div class="next reveal">
+                <div>
+                    <h3>Клиент пишет ночью, и ему <em>сразу</em> отвечают</h3>
+                    <p class="lead">Отвечает, отрабатывает сомнения, бронирует и напоминает. Делает всю работу администратора,
+                        только без выходных и без забытых заявок.</p>
+                    <ul>
+                        <li><b>Знает факты.</b> Свободные даты и цены берёт из системы бронирования, а не придумывает.</li>
+                        <li><b>Доводит до брони.</b> Сам записывает клиента или присылает готовую ссылку на оплату.</li>
+                        <li><b>Не отпускает клиента.</b> Отвечает на «дорого» и «подумаю», а если человек пропал, мягко напоминает о себе.</li>
+                    </ul>
+                </div>
+                <div class="phone" aria-label="Пример диалога с ИИ-администратором">
+                    <div class="chat-top"><div class="ava">ИИ</div><div><b>ИИ-администратор</b><small>● онлайн</small></div></div>
+                    <div class="chat" id="chat">
+                        <div class="msg in">Здравствуйте! Хотим домик на субботу, 24 октября, нас четверо<small>23:47</small></div>
+                        <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
+                        <div class="msg out">Добрый вечер! На 24.10 свободны два:
+                            <span class="tariff"><b>🏠 «Шале»</b> до 4 гостей · <b>18 000 ₽</b></span>
+                            <span class="tariff"><b>🏡 «Семейный» с баней</b> до 6 гостей · <b>24 000 ₽</b></span>
+                            Цена за ночь, завтрак включён.<small>23:47</small></div>
+                        <div class="msg in">Дороговато, рассчитывали тысяч на 12<small>23:48</small></div>
+                        <div class="msg out">Понимаю! В будни дешевле. 27.10, во вторник, «Шале» стоит:
+                            <span class="tariff">Тариф «Будни» · <b>12 500 ₽</b></span>
+                            <span class="tariff">«Ранняя бронь», оплата сегодня · <b>11 250 ₽</b></span>
+                            Завтрак тоже входит. Подойдёт?<small>23:48</small></div>
+                        <div class="msg in">Да, давайте на 27-е по ранней брони<small>23:49</small></div>
+                        <div class="msg out">Отлично! Скинул вам ссылку на бронь, там уже выбран тариф и все условия:
+                            <span class="linkcard">
+                                <span class="lc-site">Бронирование · загородный клуб</span>
+                                <b>«Шале», 27–28 октября</b>
+                                <span class="lc-row">Тариф «Ранняя бронь» · <b>11 250 ₽</b></span>
+                                <span class="lc-row">4 гостя, завтрак включён</span>
+                                <span class="lc-row">Заезд с 14:00, выезд до 12:00</span>
+                                <span class="lc-row">Предоплата 30% (3 375 ₽), остальное на месте</span>
+                                <span class="lc-row">Бесплатная отмена за 3 дня</span>
+                                <span class="lc-btn">Оформить бронь →</span>
+                            </span>
+                            Держу домик за вами 30 минут. Накануне напомню и пришлю, как доехать.<small>23:49</small></div>
+                    </div>
+                    <div class="speed">Время ответа: <b>3 секунды</b> вместо 47 часов</div>
+                </div>
+            </div>
+
+            <div class="feats">
+                <div class="feat spot reveal d1"><span class="fi">⚡</span><h4>Отвечает за секунды</h4><p>Круглосуточно, в Telegram, WhatsApp и на сайте. Ночью и в выходные тоже.</p></div>
+                <div class="feat spot reveal d2"><span class="fi">📅</span><h4>Знает свободные даты и цены</h4><p>Берёт их из системы бронирования в реальном времени, поэтому не ошибается и не выдумывает.</p></div>
+                <div class="feat spot reveal d3"><span class="fi">✅</span><h4>Записывает и бронирует</h4><p>Сам оформляет запись или бронь, а если удобнее, присылает ссылку, где клиент оплатит за минуту.</p></div>
+                <div class="feat spot reveal d4"><span class="fi">💬</span><h4>Отрабатывает возражения</h4><p>На «дорого», «подумаю», «а у других дешевле» объясняет ценность и предлагает подходящий вариант.</p></div>
+                <div class="feat spot reveal d1"><span class="fi">🎯</span><h4>Дожимает</h4><p>Если клиент спросил и пропал, через время сам напишет ему ещё раз. Заявки не теряются.</p></div>
+                <div class="feat spot reveal d2"><span class="fi">🔔</span><h4>Напоминает</h4><p>Накануне визита напоминает о записи и присылает адрес, чтобы клиент не забыл и не опоздал.</p></div>
+                <div class="feat spot reveal d3"><span class="fi">🙋</span><h4>Зовёт менеджера</h4><p>Если вопрос сложный или нестандартный, сразу передаёт его живому человеку с историей переписки.</p></div>
+                <div class="feat spot reveal d4"><span class="fi">📊</span><h4>Считает результат</h4><p>Показывает, сколько людей написало, сколько забронировало и сколько денег принёс помощник.</p></div>
+            </div>
+            <div class="hook reveal"><a href="#how">Как это появится у вас, без риска <span>↓</span></a></div>
+        </div>
+    </section>
+
+    <section id="how">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-num">04 / КАК РАБОТАЕМ</div>
+                <h2>Как это появится у вас</h2>
+                <p>Четыре шага. Вы видите результат до того, как принимаете решение.</p>
+            </div>
+
+            <div class="steps4">
+                <div class="st reveal d1"><span class="tag">бесплатно</span><h3>Разбор</h3><p>Созваниваемся или переписываемся в Telegram. Смотрим, где теряются заявки и сколько это стоит.</p></div>
+                <div class="st reveal d2"><span class="tag">бесплатно</span><h3>Демо на ваших данных</h3><p>За пару дней собираю ИИ-администратора с вашими услугами, ценами и ответами.</p></div>
+                <div class="st reveal d3"><span class="tag">бесплатно</span><h3>Неделя теста</h3><p>Бот отвечает сам или пишет черновики менеджеру. Вы смотрите на живых клиентах, как он работает.</p></div>
+                <div class="st reveal d4"><h3>Запуск и поддержка</h3><p>Подключаю к вашим каналам, слежу за работой, присылаю отчёты, дорабатываю ответы.</p></div>
+            </div>
+            <p class="safe reveal">✓ Решение о покупке вы принимаете после теста, когда уже видите результат.</p>
+            <div class="hook reveal"><a href="#about">Кроме ИИ-администратора, могу закрыть и другие задачи <span>↓</span></a></div>
+        </div>
+    </section>
+
     <section id="about">
         <div class="wrap">
             <div class="sec-head reveal">
-                <div class="sec-num">01 / ЧЕМ ЗАНИМАЮСЬ</div>
-                <h2>Что я делаю</h2>
+                <div class="sec-num">05 / ЧТО ЕЩЁ ДЕЛАЮ</div>
+                <h2>Что ещё я делаю</h2>
                 <p>Беру рутину, на которой бизнес теряет деньги, и отдаю её ИИ. Всё собираю сам, от идеи до запуска.</p>
             </div>
 
@@ -626,13 +930,59 @@
                     </div>
                 </div>
             </div>
+            <div class="hook reveal"><a href="#faq">Остались вопросы? Собрал самые частые <span>↓</span></a></div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-num">06 / ВОПРОСЫ</div>
+                <h2>Частые вопросы</h2>
+                <p>То, о чём обычно спрашивают владельцы бизнеса перед стартом.</p>
+            </div>
+
+            <div class="faq reveal">
+                <details>
+                    <summary>А если ИИ ошибётся или придумает цену?</summary>
+                    <div class="ans">Цены, даты и наличие он берёт из вашей системы бронирования или из базы, которую мы заполняем вместе.
+                        Если ответа там нет, он не выдумывает, а зовёт менеджера. На старте можно включить тихий режим:
+                        бот пишет черновики, а менеджер проверяет и отправляет.</div>
+                </details>
+                <details>
+                    <summary>Сколько это стоит?</summary>
+                    <div class="ans">Зависит от задачи: сколько каналов, нужна ли связка с вашей системой, сколько заявок.
+                        Точную цену называю после бесплатного разбора, когда уже понятно, сколько он вам сэкономит.
+                        Обычно это дешевле зарплаты одного администратора.</div>
+                </details>
+                <details>
+                    <summary>Он заменит моих менеджеров?</summary>
+                    <div class="ans">Нет. Он берёт на себя типовые вопросы, ночь и выходные, а менеджеры занимаются сложными клиентами.
+                        Нагрузка падает, а заявки больше не теряются.</div>
+                </details>
+                <details>
+                    <summary>Где он будет отвечать клиентам?</summary>
+                    <div class="ans">В Telegram и WhatsApp, при необходимости и на сайте. Клиенту ничего не нужно устанавливать,
+                        он пишет туда же, куда писал раньше.</div>
+                </details>
+                <details>
+                    <summary>Сколько времени займёт запуск?</summary>
+                    <div class="ans">Демо на ваших данных за пару дней. Полный запуск вместе с неделей теста обычно занимает 1–2 недели.</div>
+                </details>
+                <details>
+                    <summary>Что с данными моих клиентов?</summary>
+                    <div class="ans">Данные хранятся на сервере в России, работа оформляется по закону о персональных данных (152-ФЗ).
+                        Доступ к переписке есть у вас.</div>
+                </details>
+            </div>
+            <div class="hook reveal"><a href="#path">А теперь коротко, кто я и почему мне можно доверить ваших клиентов <span>↓</span></a></div>
         </div>
     </section>
 
     <section id="path">
         <div class="wrap">
             <div class="sec-head reveal">
-                <div class="sec-num">02 / ПУТЬ</div>
+                <div class="sec-num">07 / ОБО МНЕ</div>
                 <h2>С чего начинал</h2>
                 <p>Ещё в августе я ничего не знал про ИИ и бизнес. Меньше чем за два месяца это стало главным делом моей жизни.</p>
             </div>
@@ -698,7 +1048,7 @@
     <section>
         <div class="wrap">
             <div class="sec-head reveal">
-                <div class="sec-num">03 / ВРЕМЯ</div>
+                <div class="sec-num">08 / ВРЕМЯ</div>
                 <h2>Сколько в это вложил</h2>
                 <p>С 26 августа по сегодня почти без выходных, по 8–9 часов в день. Это больше 500 часов, как три месяца полной рабочей недели.</p>
             </div>
@@ -720,70 +1070,6 @@
         </div>
     </section>
 
-    <section id="next">
-        <div class="wrap">
-            <div class="sec-head reveal">
-                <div class="sec-num">04 / СЛЕДУЮЩИЙ ПРОЕКТ</div>
-                <h2>ИИ-администратор</h2>
-                <p>Помощник, который отвечает клиентам сразу, а не через два дня. Чтобы ни одна заявка не потерялась.</p>
-            </div>
-
-            <div class="next reveal">
-                <div>
-                    <h3>Клиент пишет ночью, и ему <em>сразу</em> отвечают</h3>
-                    <p class="lead">Отвечает, отрабатывает сомнения, бронирует и напоминает. Делает всю работу администратора,
-                        только без выходных и без забытых заявок.</p>
-                    <ul>
-                        <li><b>Знает факты.</b> Свободные даты и цены берёт из системы бронирования, а не придумывает.</li>
-                        <li><b>Доводит до брони.</b> Сам записывает клиента или присылает готовую ссылку на оплату.</li>
-                        <li><b>Не отпускает клиента.</b> Отвечает на «дорого» и «подумаю», а если человек пропал, мягко напоминает о себе.</li>
-                    </ul>
-                </div>
-                <div class="phone" aria-label="Пример диалога с ИИ-администратором">
-                    <div class="chat-top"><div class="ava">ИИ</div><div><b>ИИ-администратор</b><small>● онлайн</small></div></div>
-                    <div class="chat" id="chat">
-                        <div class="msg in">Здравствуйте! Хотим домик на субботу, 24 октября, нас четверо<small>23:47</small></div>
-                        <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
-                        <div class="msg out">Добрый вечер! На 24.10 свободны два:
-                            <span class="tariff"><b>🏠 «Шале»</b> до 4 гостей · <b>18 000 ₽</b></span>
-                            <span class="tariff"><b>🏡 «Семейный» с баней</b> до 6 гостей · <b>24 000 ₽</b></span>
-                            Цена за ночь, завтрак включён.<small>23:47</small></div>
-                        <div class="msg in">Дороговато, рассчитывали тысяч на 12<small>23:48</small></div>
-                        <div class="msg out">Понимаю! В будни дешевле. 27.10, во вторник, «Шале» стоит:
-                            <span class="tariff">Тариф «Будни» · <b>12 500 ₽</b></span>
-                            <span class="tariff">«Ранняя бронь», оплата сегодня · <b>11 250 ₽</b></span>
-                            Завтрак тоже входит. Подойдёт?<small>23:48</small></div>
-                        <div class="msg in">Да, давайте на 27-е по ранней брони<small>23:49</small></div>
-                        <div class="msg out">Отлично! Скинул вам ссылку на бронь, там уже выбран тариф и все условия:
-                            <span class="linkcard">
-                                <span class="lc-site">Бронирование · загородный клуб</span>
-                                <b>«Шале», 27–28 октября</b>
-                                <span class="lc-row">Тариф «Ранняя бронь» · <b>11 250 ₽</b></span>
-                                <span class="lc-row">4 гостя, завтрак включён</span>
-                                <span class="lc-row">Заезд с 14:00, выезд до 12:00</span>
-                                <span class="lc-row">Предоплата 30% (3 375 ₽), остальное на месте</span>
-                                <span class="lc-row">Бесплатная отмена за 3 дня</span>
-                                <span class="lc-btn">Оформить бронь →</span>
-                            </span>
-                            Держу домик за вами 30 минут. Накануне напомню и пришлю, как доехать.<small>23:49</small></div>
-                    </div>
-                    <div class="speed">Время ответа: <b>3 секунды</b> вместо 47 часов</div>
-                </div>
-            </div>
-
-            <div class="feats">
-                <div class="feat spot reveal d1"><span class="fi">⚡</span><h4>Отвечает за секунды</h4><p>Круглосуточно, в Telegram, WhatsApp и на сайте. Ночью и в выходные тоже.</p></div>
-                <div class="feat spot reveal d2"><span class="fi">📅</span><h4>Знает свободные даты и цены</h4><p>Берёт их из системы бронирования в реальном времени, поэтому не ошибается и не выдумывает.</p></div>
-                <div class="feat spot reveal d3"><span class="fi">✅</span><h4>Записывает и бронирует</h4><p>Сам оформляет запись или бронь, а если удобнее, присылает ссылку, где клиент оплатит за минуту.</p></div>
-                <div class="feat spot reveal d4"><span class="fi">💬</span><h4>Отрабатывает возражения</h4><p>На «дорого», «подумаю», «а у других дешевле» объясняет ценность и предлагает подходящий вариант.</p></div>
-                <div class="feat spot reveal d1"><span class="fi">🎯</span><h4>Дожимает</h4><p>Если клиент спросил и пропал, через время сам напишет ему ещё раз. Заявки не теряются.</p></div>
-                <div class="feat spot reveal d2"><span class="fi">🔔</span><h4>Напоминает</h4><p>Накануне визита напоминает о записи и присылает адрес, чтобы клиент не забыл и не опоздал.</p></div>
-                <div class="feat spot reveal d3"><span class="fi">🙋</span><h4>Зовёт менеджера</h4><p>Если вопрос сложный или нестандартный, сразу передаёт его живому человеку с историей переписки.</p></div>
-                <div class="feat spot reveal d4"><span class="fi">📊</span><h4>Считает результат</h4><p>Показывает, сколько людей написало, сколько забронировало и сколько денег принёс помощник.</p></div>
-            </div>
-        </div>
-    </section>
-
     <section>
         <div class="wrap">
             <div class="honest spot reveal">
@@ -795,18 +1081,18 @@
         </div>
     </section>
 
+
 </main>
 
 <footer id="contact">
     <div class="wrap">
         <div class="contact-grid">
             <div class="reveal">
-                <div class="sec-num">05 / ВНЕДРЕНИЕ В ВАШ БИЗНЕС</div>
-                <h2>Хотите так же <em>у себя?</em></h2>
-                <p>Если клиенты ждут ответа часами или есть рутина, которую хочется отдать ИИ, напишите мне в Telegram.
-                   Разберёмся, где вы теряете заявки, и я сам внедрю ИИ-решение, которое сэкономит вам время и деньги.
-                   Первый разговор ни к чему не обязывает.</p>
-                <a class="btn magnetic" href="https://t.me/timqaa17">Обсудить внедрение <span class="arrow">→</span></a>
+                <div class="sec-num">09 / БЕСПЛАТНЫЙ РАЗБОР</div>
+                <h2>Узнайте, где вы <em>теряете заявки</em></h2>
+                <p>Напишите мне в Telegram пару слов о своём бизнесе. Разберём, где уходят клиенты, сколько это стоит
+                   и как ИИ закроет эту дыру. Бесплатно и ни к чему не обязывает.</p>
+                <a class="btn magnetic" href="https://t.me/timqaa17">Получить бесплатный разбор <span class="arrow">→</span></a>
             </div>
 
             <div class="contact-links reveal d2">
@@ -822,6 +1108,8 @@
         </div>
     </div>
 </footer>
+
+<a class="sticky-cta" id="stickyCta" href="https://t.me/timqaa17">Получить бесплатный разбор →</a>
 
 <script>
 (function () {
@@ -909,6 +1197,65 @@
         });
     }
 
+
+    // калькулятор потерь
+    var cIds = ["cLeads", "cMiss", "cConv", "cCheck"];
+    var cEls = cIds.map(function (id) { return document.getElementById(id); });
+    var lossEl = document.getElementById("loss"), lossYearEl = document.getElementById("lossYear"), formulaEl = document.getElementById("formula");
+    var fmt = function (n) { return Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ") + " ₽"; };
+    var shown = 0, lossAnim = null;
+    function paintRange(el) { el.style.setProperty("--p", ((el.value - el.min) / (el.max - el.min) * 100) + "%"); }
+    function calc() {
+        var leads = +cEls[0].value, miss = +cEls[1].value, conv = +cEls[2].value, check = +cEls[3].value;
+        document.getElementById("oLeads").textContent = leads;
+        document.getElementById("oMiss").textContent = miss + "%";
+        document.getElementById("oConv").textContent = conv + "%";
+        document.getElementById("oCheck").textContent = fmt(check);
+        cEls.forEach(paintRange);
+        var clients = leads * 30 * miss / 100 * conv / 100;
+        var loss = clients * check;
+        lossYearEl.textContent = fmt(loss * 12);
+        formulaEl.textContent = "≈ " + Math.round(clients) + " клиентов в месяц пишут вам и уходят к тем, кто ответил первым";
+        if (reduceMotion) { lossEl.textContent = fmt(loss); shown = loss; return; }
+        cancelAnimationFrame(lossAnim);
+        var from = shown, t0 = null;
+        (function tick(ts) {
+            if (!t0) t0 = ts;
+            var k = Math.min(1, (ts - t0) / 450), v = from + (loss - from) * (1 - Math.pow(1 - k, 3));
+            lossEl.textContent = fmt(v); shown = v;
+            if (k < 1) lossAnim = requestAnimationFrame(tick);
+        })(performance.now());
+    }
+    if (lossEl) { cEls.forEach(function (el) { el.addEventListener("input", calc); }); calc(); }
+
+    // меню: подсветка текущего раздела
+    var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
+    var chipBox = document.getElementById("chips");
+    var targets = chips.map(function (c) { return document.querySelector(c.getAttribute("href")); });
+    var activeChip = null;
+    function spy() {
+        var line = 130, current = null;
+        targets.forEach(function (t, i) { if (t && t.getBoundingClientRect().top - line <= 0) current = chips[i]; });
+        if (window.innerHeight + window.scrollY >= root.scrollHeight - 4) current = chips[chips.length - 1];
+        if (current === activeChip) return;
+        if (activeChip) activeChip.classList.remove("active");
+        activeChip = current;
+        if (current) {
+            current.classList.add("active");
+            var x = current.offsetLeft - chipBox.clientWidth / 2 + current.offsetWidth / 2;
+            chipBox.scrollTo({ left: Math.max(0, x), behavior: reduceMotion ? "auto" : "smooth" });
+        }
+    }
+
+    // кнопка внизу экрана: после первого экрана, прячется у подвала
+    var sticky = document.getElementById("stickyCta");
+    var heroEl = document.querySelector(".hero"), footEl = document.getElementById("contact");
+    function stickyToggle() {
+        var past = heroEl.getBoundingClientRect().bottom < 0;
+        var nearFoot = footEl.getBoundingClientRect().top < window.innerHeight;
+        sticky.classList.toggle("show", past && !nearFoot);
+    }
+
     // появление при прокрутке
     if ("IntersectionObserver" in window && !reduceMotion) {
         root.classList.add("js");
@@ -947,6 +1294,7 @@
                 s.classList.toggle("lit", s.getBoundingClientRect().top + 30 < mark);
             });
         }
+        spy(); stickyToggle();
         ticking = false;
     }
     window.addEventListener("scroll", function () {
