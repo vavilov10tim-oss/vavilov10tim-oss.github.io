@@ -337,6 +337,8 @@
         .reel-end button { background: none; border: 0; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer; padding: 8px; }
         .reel-end button:hover { color: #fff; }
 
+        .tariff .t-top { display: flex; justify-content: space-between; gap: 10px; }
+        .tariff .t-sub { display: block; margin-top: 2px; font-size: 12px; opacity: 0.85; }
         .tariff {
             display: block; margin: 6px 0; padding: 7px 10px; border-radius: 10px;
             background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.18); font-size: 13px;
@@ -760,20 +762,24 @@
             <div class="sec-head reveal">
                 <div class="sec-num">01 / ВАШИ ПОТЕРИ</div>
                 <h2>Сколько денег вы теряете на заявках без ответа</h2>
-                <p>Три цифры, которые вы знаете о своём бизнесе. Посчитаем, сколько стоят заявки, которым не ответили вовремя.</p>
+                <p>Возьмите цифры за прошлую неделю: сколько человек написали, скольким ответили в течение часа и сколько записались.</p>
             </div>
 
             <div class="calc reveal">
                 <div class="calc-in">
                     <div class="field">
-                        <label for="cMissed">Заявок в день остаются без ответа дольше часа <output id="oMissed">3</output></label>
-                        <input type="range" id="cMissed" min="1" max="30" step="1" value="3">
-                        <small>Ночью, в выходные, когда менеджер занят. Посмотрите утром в мессенджер</small>
+                        <label for="cLeads">Заявок и сообщений в день <output id="oLeads">15</output></label>
+                        <input type="range" id="cLeads" min="1" max="100" step="1" value="15">
                     </div>
                     <div class="field">
-                        <label for="cConv">Сколько заявок у вас становятся покупкой <output id="oConv">20%</output></label>
+                        <label for="cMiss">Сколько остаются без ответа дольше часа <output id="oMiss">30%</output></label>
+                        <input type="range" id="cMiss" min="5" max="80" step="5" value="30">
+                        <small>Как посчитать: за прошлую неделю написали 50 человек, в течение часа ответили 35. Значит, 15 из 50 ждали дольше, это 30%</small>
+                    </div>
+                    <div class="field">
+                        <label for="cConv">Сколько из ответивших записываются <output id="oConv">20%</output></label>
                         <input type="range" id="cConv" min="5" max="60" step="5" value="20">
-                        <small>Ваша конверсия: из 10 написавших покупают 2, значит 20%</small>
+                        <small>Как посчитать: из 35 человек, которым ответили, записались 7. Значит, 20%</small>
                     </div>
                     <div class="field">
                         <label for="cCheck">Средний чек <output id="oCheck">5 000 ₽</output></label>
@@ -783,8 +789,8 @@
 
                 <div class="calc-out" aria-live="polite">
                     <div class="lbl">Вы теряете примерно</div>
-                    <div class="loss" id="loss">90 000 ₽</div>
-                    <div class="loss-year">в месяц, или <span id="lossYear">1 080 000 ₽</span> в год</div>
+                    <div class="loss" id="loss">135 000 ₽</div>
+                    <div class="loss-year">в месяц, или <span id="lossYear">1 620 000 ₽</span> в год</div>
                     <div class="formula" id="formula">≈ 34 клиента в месяц пишут вам и уходят к тем, кто ответил первым</div>
                     <a class="btn magnetic" href="https://t.me/timqaa17">Разобрать мои цифры бесплатно <span class="arrow">→</span></a>
                 </div>
@@ -792,13 +798,14 @@
             <div class="calc-how reveal">
                 <div class="ch-title"><span class="ch-ic">i</span> Как считаем</div>
                 <div class="eq">
-                    <span class="eq-v" id="eMissed">3 заявки в день</span><i>×</i>
+                    <span class="eq-v" id="eLeads">15 заявок в день</span><i>×</i>
                     <span class="eq-v">30 дней</span><i>×</i>
-                    <span class="eq-v" id="eConv">20% конверсия</span><i>×</i>
+                    <span class="eq-v" id="eMiss">30% без ответа</span><i>×</i>
+                    <span class="eq-v" id="eConv">20% записались бы</span><i>×</i>
                     <span class="eq-v" id="eCheck">5 000 ₽ чек</span><i>=</i>
-                    <span class="eq-r" id="eLoss">90 000 ₽</span>
+                    <span class="eq-r" id="eLoss">135 000 ₽ в месяц</span>
                 </div>
-                <p>Если бы этим людям ответили сразу, они покупали бы так же, как ваши остальные клиенты. Точнее посчитаем на бесплатном разборе.</p>
+                <p>Тем, кому ответили не сразу, многие уже не пишут повторно: они записываются к тем, кто ответил первым. Считаем, что, ответь вы сразу, они записывались бы так же, как остальные. Точнее посчитаем на бесплатном разборе.</p>
             </div>
             <div class="hook reveal"><a href="#who">Где именно теряются эти деньги, зависит от ниши. Найдите свою <span>↓</span></a></div>
         </div>
@@ -861,26 +868,27 @@
                 <div class="phone" aria-label="Пример диалога с ИИ-администратором">
                     <div class="chat-top"><div class="ava">ИИ</div><div><b>ИИ-администратор</b><small>● онлайн</small></div></div>
                     <div class="chat" id="chat">
-                        <div class="msg in">Здравствуйте! Хотим домик на субботу, 24 октября, нас четверо<small>23:47</small></div>
+                        <div class="msg in">Здравствуйте! Хотим домик на субботу, 24 октября, нас четверо. Обязательно с баней<small>23:47</small></div>
                         <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
-                        <div class="msg out">Добрый вечер! На 24.10 свободны два:
-                            <span class="tariff"><b>🏠 «Шале»</b> до 4 гостей · <b>18 000 ₽</b></span>
-                            <span class="tariff"><b>🏡 «Семейный» с баней</b> до 6 гостей · <b>24 000 ₽</b></span>
-                            Цена за ночь, завтрак включён.<small>23:47</small></div>
-                        <div class="msg in">Дороговато, рассчитывали тысяч на 12<small>23:48</small></div>
-                        <div class="msg out">Понимаю! В будни дешевле. 27.10, во вторник, «Шале» стоит:
-                            <span class="tariff">Тариф «Будни» · <b>12 500 ₽</b></span>
-                            <span class="tariff">«Ранняя бронь», оплата сегодня · <b>11 250 ₽</b></span>
-                            Завтрак тоже входит. Подойдёт?<small>23:48</small></div>
-                        <div class="msg in">Да, давайте на 27-е по ранней брони<small>23:49</small></div>
+                        <div class="msg out">Добрый вечер! На 24.10 свободны два домика с баней:
+                            <span class="tariff"><span class="t-top"><b>🏠 «Шале»</b> <b>19 500 ₽</b></span><span class="t-sub">до 4 гостей · баня на дровах 2 часа · завтрак</span></span>
+                            <span class="tariff"><span class="t-top"><b>🏡 «Семейный»</b> <b>26 000 ₽</b></span><span class="t-sub">до 6 гостей · баня + купель с подогревом · мангальная зона · завтрак</span></span>
+                            Цена за ночь, заезд с 14:00. Какой ближе?<small>23:47</small></div>
+                        <div class="msg in">Хотим с купелью, но 26 тысяч дороговато<small>23:48</small></div>
+                        <div class="msg out">Понимаю! Можно взять «Шале» и добавить купель:
+                            <span class="tariff"><span class="t-top"><b>«Шале» + купель</b> <b>22 000 ₽</b></span><span class="t-sub">19 500 ₽ + купель с подогревом 2 500 ₽</span></span>
+                            <span class="tariff"><span class="t-top"><b>«Ранняя бронь» −10%</b> <b>19 800 ₽</b></span><span class="t-sub">если оплатить предоплату сегодня</span></span>
+                            Баня, купель и завтрак остаются. Подойдёт?<small>23:48</small></div>
+                        <div class="msg in">Да, бронируем по ранней<small>23:49</small></div>
                         <div class="msg out">Отлично! Скинул вам ссылку на бронь, там уже выбран тариф и все условия:
                             <span class="linkcard">
                                 <span class="lc-site">Бронирование · загородный клуб</span>
-                                <b>«Шале», 27–28 октября</b>
-                                <span class="lc-row">Тариф «Ранняя бронь» · <b>11 250 ₽</b></span>
+                                <b>«Шале» + купель, 24–25 октября</b>
+                                <span class="lc-row">Тариф «Ранняя бронь» · <b>19 800 ₽</b></span>
+                                <span class="lc-row">Баня на дровах 2 часа + купель с подогревом</span>
                                 <span class="lc-row">4 гостя, завтрак включён</span>
                                 <span class="lc-row">Заезд с 14:00, выезд до 12:00</span>
-                                <span class="lc-row">Предоплата 30% (3 375 ₽), остальное на месте</span>
+                                <span class="lc-row">Предоплата 30% (5 940 ₽), остальное на месте</span>
                                 <span class="lc-row">Бесплатная отмена за 3 дня</span>
                                 <span class="lc-btn">Оформить бронь →</span>
                             </span>
@@ -1188,30 +1196,46 @@
     }
 
     // чат ИИ-администратора: печатает и отвечает
-    var chatStarted = false;
+    var chat = document.getElementById("chat");
+    var chatMsgs = chat ? chat.querySelectorAll(".msg") : [];
+    var typing = chat ? chat.querySelector(".typing") : null;
+    var chatTimers = [], chatPlaying = false;
+    function chatReset() {
+        chatTimers.forEach(clearTimeout); chatTimers = [];
+        typing.classList.remove("show");
+        chatMsgs.forEach(function (m) { m.classList.remove("show"); });
+        chatPlaying = false;
+    }
     function playChat() {
-        if (chatStarted) return;
-        chatStarted = true;
-        var chat = document.getElementById("chat");
-        var msgs = chat.querySelectorAll(".msg");
-        var typing = chat.querySelector(".typing");
-        if (reduceMotion) { msgs.forEach(function (m) { m.classList.add("show"); }); return; }
-
-        function run() {
-            msgs.forEach(function (m) { m.classList.remove("show"); });
-            var t = 300;
-            msgs.forEach(function (m) {
-                if (m.classList.contains("out")) {
-                    setTimeout(function () { typing.style.top = m.offsetTop + "px"; typing.classList.add("show"); }, t);
-                    t += 1100;
-                    setTimeout(function () { typing.classList.remove("show"); m.classList.add("show"); }, t);
-                } else {
-                    setTimeout(function () { m.classList.add("show"); }, t);
-                }
-                t += 900;
+        if (!chat || chatPlaying) return;
+        if (reduceMotion) { chatMsgs.forEach(function (m) { m.classList.add("show"); }); return; }
+        chatReset();
+        chatPlaying = true;
+        var t = 400;
+        chatMsgs.forEach(function (m, i) {
+            if (m.classList.contains("out")) {
+                chatTimers.push(setTimeout(function () { typing.style.top = m.offsetTop + "px"; typing.classList.add("show"); }, t));
+                t += 1300;
+                chatTimers.push(setTimeout(function () { typing.classList.remove("show"); m.classList.add("show"); }, t));
+            } else {
+                chatTimers.push(setTimeout(function () { m.classList.add("show"); }, t));
+            }
+            t += 1000;
+        });
+        chatTimers.push(setTimeout(function () { chatPlaying = false; }, t));
+    }
+    // проигрываем, когда телефон с чатом заметно на экране; когда он ушёл с экрана, тихо сбрасываем
+    var phone = document.querySelector(".phone");
+    var chatShown = false;
+    if (phone && "IntersectionObserver" in window && !reduceMotion) {
+        new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting && !chatShown) { chatShown = true; playChat(); }
+                else if (!e.isIntersecting && chatShown) { chatShown = false; chatReset(); }
             });
-        }
-        run();
+        }, { threshold: 0.3 }).observe(phone);
+    } else {
+        chatMsgs.forEach(function (m) { m.classList.add("show"); });
     }
 
     // ролик про книгу: вместо концовки «пиши ПРОМПТ в комментах» показываем свою
@@ -1229,7 +1253,7 @@
 
 
     // калькулятор потерь
-    var cIds = ["cMissed", "cConv", "cCheck"];
+    var cIds = ["cLeads", "cMiss", "cConv", "cCheck"];
     var cEls = cIds.map(function (id) { return document.getElementById(id); });
     var lossEl = document.getElementById("loss"), lossYearEl = document.getElementById("lossYear"), formulaEl = document.getElementById("formula");
     var fmt = function (n) { return Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ") + " ₽"; };
@@ -1242,21 +1266,23 @@
     }
     function paintRange(el) { el.style.setProperty("--p", ((el.value - el.min) / (el.max - el.min) * 100) + "%"); }
     function calc() {
-        var missed = +cEls[0].value, conv = +cEls[1].value, check = +cEls[2].value;
-        document.getElementById("oMissed").textContent = missed;
+        var leads = +cEls[0].value, miss = +cEls[1].value, conv = +cEls[2].value, check = +cEls[3].value;
+        document.getElementById("oLeads").textContent = leads;
+        document.getElementById("oMiss").textContent = miss + "%";
         document.getElementById("oConv").textContent = conv + "%";
         document.getElementById("oCheck").textContent = fmt(check);
         cEls.forEach(paintRange);
-        var missedMonth = missed * 30;
-        var clients = missedMonth * conv / 100;
+        var missedMonth = Math.round(leads * 30 * miss / 100);
+        var clients = leads * 30 * miss / 100 * conv / 100;
         var loss = clients * check;
         lossYearEl.textContent = fmt(loss * 12);
         var c = Math.round(clients);
-        document.getElementById("eMissed").textContent = missed + " " + plural(missed, "заявка", "заявки", "заявок") + " в день";
-        document.getElementById("eConv").textContent = conv + "% конверсия";
+        formulaEl.textContent = missedMonth + " " + plural(missedMonth, "заявка", "заявки", "заявок") + " в месяц ждут ответа дольше часа, это ≈ " + c + " " + plural(c, "клиент", "клиента", "клиентов") + ", которые записались бы к вам";
+        document.getElementById("eLeads").textContent = leads + " " + plural(leads, "заявка", "заявки", "заявок") + " в день";
+        document.getElementById("eMiss").textContent = miss + "% без ответа";
+        document.getElementById("eConv").textContent = conv + "% записались бы";
         document.getElementById("eCheck").textContent = fmt(check) + " чек";
         document.getElementById("eLoss").textContent = fmt(loss) + " в месяц";
-        formulaEl.textContent = missedMonth + " " + plural(missedMonth, "заявка", "заявки", "заявок") + " в месяц без ответа, это ≈ " + c + " " + plural(c, "клиент", "клиента", "клиентов") + ", которые купили бы у вас";
         if (reduceMotion) { lossEl.textContent = fmt(loss); shown = loss; return; }
         cancelAnimationFrame(lossAnim);
         var from = shown, t0 = null;
@@ -1305,13 +1331,10 @@
                 if (!e.isIntersecting) return;
                 e.target.classList.add("in");
                 e.target.querySelectorAll("[data-count]").forEach(countUp);
-                if (e.target.querySelector("#chat")) playChat();
                 io.unobserve(e.target);
             });
         }, { rootMargin: "0px 0px -10% 0px" });
         document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
-    } else {
-        playChat();
     }
 
     // полоса прогресса и линия пути
