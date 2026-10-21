@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Тимур Вавилов</title>
+    <meta name="description" content="Тимур Вавилов, 18 лет. Делаю ИИ-решения для бизнеса, которые экономят время и деньги. С чего начинал, как к этому пришёл и что дальше.">
+    <meta property="og:title" content="Тимур Вавилов">
+    <meta property="og:description" content="18 лет, внедряю ИИ в бизнес. Мой путь от первого проекта до ИИ-администратора.">
+    <meta name="theme-color" content="#070506">
+
+    <style>
+        :root {
+            --bg: #070506;
+            --panel: rgba(255, 255, 255, 0.04);
+            --panel-2: rgba(255, 255, 255, 0.08);
+            --line: rgba(255, 255, 255, 0.1);
+            --text: #f6f2f1;
+            --muted: #a59c9b;
+            --red: #ff2d3d;
+            --red-2: #ff6a4d;
+            --red-deep: #b3001b;
+            --radius: 20px;
+            --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; background: var(--bg); }
+
+        body {
+            font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
+        section { padding: 84px 0; position: relative; }
+
+        ::selection { background: var(--red); color: #fff; }
+
+        /* ФОН: красное свечение */
+        .glow-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .glow { position: absolute; border-radius: 50%; filter: blur(100px); will-change: transform, opacity; }
+        .glow-1 { width: 560px; height: 560px; top: -200px; left: -160px;
+            background: radial-gradient(circle, rgba(255, 45, 61, 0.55), transparent 65%);
+            animation: float-a 18s ease-in-out infinite alternate, breathe 7s ease-in-out infinite; }
+        .glow-2 { width: 480px; height: 480px; top: 35%; right: -200px;
+            background: radial-gradient(circle, rgba(255, 106, 77, 0.32), transparent 65%);
+            animation: float-b 22s ease-in-out infinite alternate, breathe 9s ease-in-out infinite; }
+        .glow-3 { width: 440px; height: 440px; bottom: -160px; left: 25%;
+            background: radial-gradient(circle, rgba(179, 0, 27, 0.45), transparent 65%);
+            animation: float-c 26s ease-in-out infinite alternate, breathe 11s ease-in-out infinite; }
+
+        @keyframes float-a { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(90px,70px,0) scale(1.15); } }
+        @keyframes float-b { from { transform: translate3d(0,0,0) scale(1.05); } to { transform: translate3d(-80px,-50px,0) scale(0.92); } }
+        @keyframes float-c { from { transform: translate3d(0,0,0) scale(1); } to { transform: translate3d(-60px,-80px,0) scale(1.12); } }
+        @keyframes breathe { 0%,100% { opacity: 0.5; } 50% { opacity: 0.8; } }
+
+        .grain {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.05;
+            background-image: radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px);
+            background-size: 3px 3px;
+        }
+
+        .cursor-glow {
+            position: fixed; top: 0; left: 0;
+            width: 420px; height: 420px; margin: -210px 0 0 -210px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 45, 61, 0.16), transparent 62%);
+            pointer-events: none; z-index: 2; opacity: 0;
+            transition: opacity 0.4s ease; will-change: transform;
+        }
+
+        header, main, footer { position: relative; z-index: 3; }
+
+        /* ШАПКА */
+        header {
+            position: sticky; top: 0; z-index: 50;
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            background: linear-gradient(to bottom, rgba(7,5,6,0.92), rgba(7,5,6,0.6));
+            border-bottom: 1px solid var(--line);
+        }
+        header .wrap {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 16px; padding-top: 15px; padding-bottom: 15px; flex-wrap: wrap;
+        }
+        .name { font-weight: 800; font-size: 18px; letter-spacing: 0.5px; }
+        .name span { color: var(--red); text-shadow: 0 0 18px rgba(255,45,61,0.6); }
+        nav { display: flex; align-items: center; gap: 22px; }
+        nav a { color: var(--muted); text-decoration: none; font-size: 15px; transition: color 0.2s ease; }
+        nav a:hover { color: var(--text); }
+        .nav-cta {
+            color: #fff !important; border: 1px solid rgba(255,45,61,0.5);
+            padding: 8px 16px; border-radius: 999px; background: rgba(255,45,61,0.12);
+            transition: background 0.2s ease, box-shadow 0.2s ease;
+        }
+        .nav-cta:hover { background: rgba(255,45,61,0.25); box-shadow: 0 0 24px rgba(255,45,61,0.4); }
+
+        .progress-bar {
+            position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+            transform-origin: 0 50%; transform: scaleX(0);
+            background: linear-gradient(90deg, var(--red-deep), var(--red), #fff);
+            z-index: 60; pointer-events: none; box-shadow: 0 0 14px rgba(255, 45, 61, 0.9);
+        }
+
+        /* ГЛАВНЫЙ ЭКРАН */
+        .hero { padding: 110px 0 64px; overflow: hidden; }
+        .hero-halo {
+            position: absolute; top: 40px; left: 50%; width: 760px; height: 760px; margin-left: -380px;
+            border-radius: 50%; pointer-events: none; z-index: -1; opacity: 0.55;
+            background: conic-gradient(from 0deg, transparent, rgba(255,45,61,0.35), transparent 30%, rgba(255,106,77,0.25), transparent 60%, rgba(255,45,61,0.3), transparent);
+            filter: blur(70px);
+            animation: spin 24s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .kicker {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 13px; letter-spacing: 1.6px; text-transform: uppercase;
+            color: var(--muted); margin-bottom: 24px;
+            padding: 7px 14px 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel);
+        }
+        .dot {
+            width: 8px; height: 8px; border-radius: 50%; background: var(--red);
+            box-shadow: 0 0 0 0 rgba(255,45,61,0.7);
+            animation: ping 1.8s ease-out infinite;
+        }
+        @keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(255,45,61,0.7); } 100% { box-shadow: 0 0 0 12px rgba(255,45,61,0); } }
+
+        .hero h1 { font-size: 60px; line-height: 1.06; letter-spacing: -2px; font-weight: 800; max-width: 940px; margin-bottom: 24px; }
+        .hero h1 .w { display: inline-block; opacity: 0; transform: translateY(40%) rotate(3deg); filter: blur(8px);
+            animation: word-in 0.9s var(--ease) forwards; }
+        @keyframes word-in { to { opacity: 1; transform: none; filter: blur(0); } }
+        .hero h1 .hot { color: var(--red); animation: hot-glow 3.2s ease-in-out infinite; }
+        @keyframes hot-glow {
+            0%, 100% { text-shadow: 0 0 18px rgba(255,45,61,0.35); }
+            50% { text-shadow: 0 0 34px rgba(255,45,61,0.8), 0 0 70px rgba(255,45,61,0.35); }
+        }
+
+        .hero p { color: var(--muted); font-size: 18px; max-width: 640px; margin-bottom: 34px; }
+
+        .actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+        .btn {
+            position: relative; overflow: hidden;
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 16px 30px; border-radius: 14px;
+            font-weight: 700; font-size: 16px; text-decoration: none; color: #fff;
+            background: linear-gradient(135deg, var(--red), var(--red-deep));
+            box-shadow: 0 12px 36px rgba(255, 45, 61, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+            transition: transform 0.2s var(--ease), box-shadow 0.2s ease;
+        }
+        .btn::after {
+            content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+            background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent);
+            transform: skewX(-20deg); animation: sweep 3.6s ease-in-out infinite;
+        }
+        @keyframes sweep { 0%, 60% { left: -60%; } 100% { left: 140%; } }
+        .btn:hover { box-shadow: 0 18px 50px rgba(255,45,61,0.6), inset 0 1px 0 rgba(255,255,255,0.35); }
+        .btn .arrow { transition: transform 0.2s ease; }
+        .btn:hover .arrow { transform: translateX(4px); }
+        .btn-ghost { background: var(--panel); border: 1px solid var(--line); box-shadow: none; }
+        .btn-ghost::after { display: none; }
+        .btn-ghost:hover { background: var(--panel-2); border-color: rgba(255,255,255,0.3); box-shadow: 0 0 28px rgba(255,255,255,0.08); }
+
+        .stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-top: 46px; max-width: 740px; }
+        .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; backdrop-filter: blur(8px); }
+        .stat b { display: block; font-size: 28px; letter-spacing: -0.5px; color: #fff; }
+        .stat b em { font-style: normal; color: var(--red); text-shadow: 0 0 20px rgba(255,45,61,0.5); }
+        .stat span { color: var(--muted); font-size: 14px; }
+
+        /* БЕГУЩАЯ СТРОКА */
+        .marquee {
+            position: relative; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+            overflow: hidden; padding: 18px 0; background: rgba(255,45,61,0.04);
+            mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+        }
+        .marquee-track { display: flex; gap: 40px; width: max-content; animation: marquee 30s linear infinite; }
+        .marquee:hover .marquee-track { animation-play-state: paused; }
+        .marquee span { font-size: 15px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #cfc6c4; white-space: nowrap; }
+        .marquee span::after { content: "✦"; margin-left: 40px; color: var(--red); }
+        @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* ЗАГОЛОВКИ СЕКЦИЙ */
+        .sec-head { margin-bottom: 38px; }
+        .sec-num { display: inline-block; font-size: 13px; letter-spacing: 2px; color: var(--red); margin-bottom: 10px; font-weight: 700; }
+        .sec-head h2 { font-size: 40px; letter-spacing: -1px; margin-bottom: 10px; line-height: 1.15; }
+        .sec-head p { color: var(--muted); max-width: 640px; font-size: 16px; }
+
+        /* КАРТОЧКИ СО СВЕТОМ ЗА КУРСОРОМ */
+        .spot { --mx: 50%; --my: 50%; position: relative; }
+        .spot::before {
+            content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 1;
+            background: radial-gradient(360px circle at var(--mx) var(--my), rgba(255,45,61,0.16), transparent 45%);
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .spot::after {
+            content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none; z-index: 2;
+            padding: 1px;
+            background: radial-gradient(240px circle at var(--mx) var(--my), rgba(255,90,90,0.9), transparent 60%);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity: 0; transition: opacity 0.3s ease;
+        }
+        .spot:hover::before, .spot:hover::after { opacity: 1; }
+
+        .works { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 20px; perspective: 1000px; }
+        .work {
+            display: flex; flex-direction: column;
+            background: var(--panel); border: 1px solid var(--line);
+            border-radius: var(--radius); overflow: hidden;
+            transform-style: preserve-3d;
+            transition: transform 0.35s var(--ease), box-shadow 0.35s ease;
+        }
+        .work:hover { box-shadow: 0 30px 70px rgba(0,0,0,0.7), 0 0 50px rgba(255,45,61,0.15); }
+        .shot {
+            position: relative; height: 130px; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; letter-spacing: 3px; font-size: 14px; color: #fff; text-transform: uppercase;
+        }
+        .shot::before {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
+            transform: translateX(-100%); transition: transform 0.8s var(--ease);
+        }
+        .work:hover .shot::before { transform: translateX(100%); }
+        .shot .ic { font-size: 30px; margin-right: 12px; transition: transform 0.4s var(--ease); }
+        .work:hover .shot .ic { transform: scale(1.2) rotate(-8deg); }
+        .shot.s1 { background: radial-gradient(circle at 30% 20%, #ff4d5c, #9b0016 70%); }
+        .shot.s2 { background: radial-gradient(circle at 70% 30%, #2a1d1f, #0c0a0b 70%); border-bottom: 1px solid var(--line); }
+        .shot.s3 { background: linear-gradient(140deg, #f6f2f1, #d9d0ce); color: #120a0b; }
+        .shot.s4 { background: radial-gradient(circle at 30% 80%, #ff6a4d, #5c0010 75%); }
+        .work-body { padding: 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .work-body h3 { font-size: 18px; letter-spacing: -0.2px; }
+        .work-body p { color: var(--muted); font-size: 15px; }
+
+        /* ПУТЬ: линия заполняется при прокрутке */
+        .timeline { position: relative; display: flex; flex-direction: column; gap: 22px; padding-left: 60px; }
+        .timeline .rail { position: absolute; left: 17px; top: 18px; bottom: 18px; width: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; }
+        .timeline .fill {
+            position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+            transform-origin: 50% 0; transform: scaleY(0);
+            background: linear-gradient(to bottom, var(--red), var(--red-2), #fff);
+            box-shadow: 0 0 14px rgba(255,45,61,0.8); border-radius: 2px;
+        }
+        .milestone {
+            background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+            padding: 24px 26px;
+        }
+        .milestone .pin {
+            position: absolute; top: 20px; left: -60px; width: 36px; height: 36px; z-index: 3;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 15px; color: var(--muted);
+            background: #120d0e; border: 1px solid var(--line);
+            transition: background 0.4s ease, color 0.4s ease, box-shadow 0.4s ease, transform 0.4s var(--ease);
+        }
+        .milestone.lit .pin {
+            color: #fff; background: linear-gradient(135deg, var(--red), var(--red-deep));
+            box-shadow: 0 0 0 6px rgba(255,45,61,0.15), 0 0 26px rgba(255,45,61,0.7);
+            transform: scale(1.08);
+        }
+        .when { font-size: 13px; letter-spacing: 1.6px; text-transform: uppercase; color: var(--red); margin-bottom: 6px; font-weight: 700; }
+        .milestone h3 { font-size: 20px; margin-bottom: 8px; }
+        .milestone p { color: var(--muted); font-size: 15px; }
+        .milestone p + p { margin-top: 8px; }
+        .milestone .quote { color: #fff; border-left: 2px solid var(--red); padding-left: 12px; font-weight: 600; }
+
+        /* ВРЕМЯ */
+        .time-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+        .time-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.015));
+            border: 1px solid var(--line); border-radius: var(--radius); padding: 26px;
+        }
+        .time-card .big { font-size: 30px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1; margin-bottom: 10px; }
+        .time-card .big em { font-style: normal; color: var(--red); text-shadow: 0 0 24px rgba(255,45,61,0.5); }
+        .time-card p { color: var(--muted); font-size: 15px; }
+
+        /* СЛЕДУЮЩИЙ ПРОЕКТ */
+        .next {
+            border-radius: 24px; padding: 36px;
+            background: linear-gradient(135deg, rgba(255,45,61,0.16), rgba(255,255,255,0.02) 60%);
+            border: 1px solid rgba(255,45,61,0.35);
+            box-shadow: 0 0 80px rgba(255,45,61,0.14);
+            display: grid; grid-template-columns: 1.15fr 1fr; gap: 36px; align-items: center;
+            overflow: hidden;
+        }
+        .next h3 { font-size: 30px; letter-spacing: -0.6px; line-height: 1.2; margin-bottom: 14px; }
+        .next h3 em { font-style: normal; color: var(--red); }
+        .next .lead { color: #d8cfcd; font-size: 16px; margin-bottom: 20px; }
+        .next ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .next li { position: relative; padding-left: 28px; color: var(--muted); font-size: 15px; }
+        .next li b { color: var(--text); }
+        .next li::before {
+            content: "✓"; position: absolute; left: 0; top: 1px; width: 18px; height: 18px; border-radius: 50%;
+            background: var(--red); color: #fff; font-size: 11px; font-weight: 800;
+            display: flex; align-items: center; justify-content: center; box-shadow: 0 0 12px rgba(255,45,61,0.7);
+        }
+
+        .phone {
+            background: #0d0a0b; border: 1px solid var(--line); border-radius: 26px; padding: 16px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 6px rgba(255,255,255,0.03);
+            min-height: 330px; display: flex; flex-direction: column;
+        }
+        .chat-top { display: flex; align-items: center; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+        .ava { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--red), var(--red-deep)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; box-shadow: 0 0 16px rgba(255,45,61,0.6); }
+        .chat-top b { display: block; font-size: 14px; }
+        .chat-top small { color: #4ade80; font-size: 12px; }
+        .chat { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .msg {
+            padding: 10px 14px; border-radius: 16px; font-size: 14px; max-width: 86%; line-height: 1.45;
+            opacity: 0; transform: translateY(10px) scale(0.96);
+            transition: opacity 0.35s ease, transform 0.35s var(--ease);
+        }
+        .msg.show { opacity: 1; transform: none; }
+        .msg.in { background: rgba(255,255,255,0.09); align-self: flex-start; border-bottom-left-radius: 4px; transform-origin: 0 100%; }
+        .msg.out { background: linear-gradient(135deg, var(--red), var(--red-deep)); color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; transform-origin: 100% 100%; }
+        .msg small { display: block; margin-top: 3px; font-size: 11px; opacity: 0.6; }
+        .linkcard {
+            display: block; margin: 8px 0; padding: 10px 12px; border-radius: 12px;
+            background: rgba(0,0,0,0.3); border-left: 3px solid #fff; font-size: 13px; line-height: 1.4;
+        }
+        .linkcard .lc-site { display: block; font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+        .linkcard > b { display: block; font-size: 14px; margin-bottom: 4px; }
+        .linkcard .lc-row { display: block; opacity: 0.92; }
+        .linkcard .lc-row::before { content: "• "; opacity: 0.6; }
+        .linkcard .lc-btn {
+            display: block; margin-top: 8px; padding: 7px 10px; border-radius: 8px; text-align: center;
+            background: #fff; color: var(--red-deep); font-weight: 700;
+        }
+
+        /* РОЛИК ПРО КНИГУ */
+        .reel { position: relative; width: 100%; max-width: 300px; margin-top: 18px; border-radius: 18px; overflow: hidden;
+            border: 1px solid rgba(255,45,61,0.35); box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(255,45,61,0.15); background: #000; }
+        .reel video { display: block; width: 100%; aspect-ratio: 9 / 16; background: #000; }
+        .reel-end {
+            position: absolute; inset: 0; z-index: 4; padding: 24px;
+            display: flex; flex-direction: column; justify-content: center; gap: 12px; text-align: center;
+            background: radial-gradient(circle at 50% 30%, #3a0a10, #070506 70%);
+        }
+        .reel-end[hidden] { display: none; }
+        .reel-end b { font-size: 20px; line-height: 1.25; }
+        .reel-end p { color: #d8cfcd; font-size: 14px; }
+        .reel-end .btn { justify-content: center; width: 100%; }
+        .reel-end button { background: none; border: 0; color: var(--muted); font: inherit; font-size: 14px; cursor: pointer; padding: 8px; }
+        .reel-end button:hover { color: #fff; }
+
+        .tariff {
+            display: block; margin: 6px 0; padding: 7px 10px; border-radius: 10px;
+            background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.18); font-size: 13px;
+        }
+        .typing { align-self: flex-end; display: none; gap: 4px; padding: 12px 14px; border-radius: 16px; background: rgba(255,45,61,0.2); }
+        .typing.show { display: inline-flex; }
+        .typing i { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: bounce 1s infinite; }
+        .typing i:nth-child(2) { animation-delay: 0.15s; } .typing i:nth-child(3) { animation-delay: 0.3s; }
+        @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-5px); opacity: 1; } }
+        .speed { margin-top: 12px; font-size: 12px; color: var(--muted); text-align: center; }
+        .speed b { color: var(--red); }
+
+        .feats { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; margin-top: 22px; }
+        .feat {
+            background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 22px 20px;
+            transition: transform 0.3s var(--ease), border-color 0.3s ease;
+        }
+        .feat:hover { transform: translateY(-4px); border-color: rgba(255,45,61,0.4); }
+        .fi {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 44px; height: 44px; border-radius: 12px; font-size: 21px; margin-bottom: 14px;
+            background: rgba(255,45,61,0.12); border: 1px solid rgba(255,45,61,0.3);
+            transition: transform 0.4s var(--ease), box-shadow 0.4s ease;
+        }
+        .feat:hover .fi { transform: scale(1.12) rotate(-6deg); box-shadow: 0 0 22px rgba(255,45,61,0.45); }
+        .feat h4 { font-size: 16px; margin-bottom: 6px; }
+        .feat p { color: var(--muted); font-size: 14px; }
+        @media (max-width: 980px) { .feats { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+        @media (max-width: 480px) { .feats { grid-template-columns: 1fr; } }
+
+        /* ЧЕСТНО О СЕБЕ */
+        .honest {
+            border-radius: var(--radius); padding: 32px;
+            background: linear-gradient(120deg, rgba(255,255,255,0.07), rgba(255,45,61,0.08));
+            border: 1px solid rgba(255,255,255,0.14);
+        }
+        .honest b { display: block; font-size: 18px; margin-bottom: 8px; }
+        .honest p { color: #d8cfcd; font-size: 16px; }
+        .honest p + p { margin-top: 10px; }
+
+        /* ПОДВАЛ */
+        footer {
+            border-top: 1px solid var(--line); padding: 80px 0 48px;
+            background: radial-gradient(ellipse at 50% 120%, rgba(255,45,61,0.22), transparent 60%);
+        }
+        .contact-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: start; }
+        .contact-grid h2 { font-size: 42px; letter-spacing: -1px; margin-bottom: 14px; line-height: 1.1; }
+        .contact-grid h2 em { font-style: normal; color: var(--red); text-shadow: 0 0 30px rgba(255,45,61,0.6); }
+        .contact-grid p { color: var(--muted); margin-bottom: 26px; max-width: 480px; }
+        .contact-links { display: flex; flex-direction: column; gap: 12px; }
+        .contact-link {
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            padding: 16px 20px; border-radius: 14px;
+            border: 1px solid var(--line); background: var(--panel);
+            color: var(--text); text-decoration: none; font-weight: 600;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+        }
+        .contact-link:hover { border-color: rgba(255,45,61,0.55); box-shadow: 0 0 30px rgba(255,45,61,0.2); transform: translateX(4px); }
+        .contact-link span { color: var(--muted); font-weight: 400; font-size: 14px; }
+        .copyright {
+            margin-top: 46px; padding-top: 22px; border-top: 1px solid var(--line);
+            color: #7a7070; font-size: 13px;
+            display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+        }
+
+        /* ПОЯВЛЕНИЕ ПРИ ПРОКРУТКЕ */
+        .js .reveal { opacity: 0; transform: translateY(28px) scale(0.98); filter: blur(6px);
+            transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), filter 0.8s var(--ease); }
+        .js .reveal.in { opacity: 1; transform: none; filter: none; }
+        .js .hero .reveal { transition-delay: 0.5s; }
+        .d1 { transition-delay: 0.05s !important; } .d2 { transition-delay: 0.15s !important; }
+        .d3 { transition-delay: 0.25s !important; } .d4 { transition-delay: 0.35s !important; }
+
+        /* АДАПТИВ */
+        @media (max-width: 980px) {
+            .hero h1 { font-size: 44px; }
+            .time-grid { grid-template-columns: 1fr; }
+            .next { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; gap: 26px; }
+            section { padding: 64px 0; }
+        }
+        @media (max-width: 640px) {
+            .wrap { padding: 0 16px; }
+            .hero { padding: 60px 0 44px; }
+            .hero-halo { width: 480px; height: 480px; margin-left: -240px; }
+            .hero h1 { font-size: 34px; letter-spacing: -1px; }
+            .hero p { font-size: 16px; }
+            .kicker { font-size: 11px; letter-spacing: 1px; }
+            section { padding: 52px 0; }
+            .sec-head h2 { font-size: 28px; }
+            .works, .stats { grid-template-columns: 1fr; }
+            .stats { gap: 10px; margin-top: 30px; }
+            .stat { padding: 14px 16px; }
+            .stat b { font-size: 24px; }
+            nav { gap: 14px; }
+            nav a { font-size: 14px; }
+            nav .hide-m { display: none; }
+            .shot { height: 104px; }
+            .timeline { padding-left: 48px; }
+            .timeline .rail { left: 14px; }
+            .milestone { padding: 20px; }
+            .milestone .pin { left: -48px; width: 30px; height: 30px; font-size: 13px; }
+            .next { padding: 22px 18px; }
+            .next h3 { font-size: 24px; }
+            .honest { padding: 24px 20px; }
+            .contact-grid h2 { font-size: 32px; }
+            .btn { width: 100%; justify-content: center; }
+            .glow { filter: blur(70px); }
+            .cursor-glow { display: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after { animation: none !important; transition: none !important; }
+            .hero h1 .w { opacity: 1; transform: none; filter: none; }
+            .js .reveal { opacity: 1; transform: none; filter: none; }
+            .msg { opacity: 1; transform: none; }
+            .cursor-glow { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+
+<div class="glow-layer" aria-hidden="true">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<header>
+    <div class="wrap">
+        <div class="name">ТИМУР <span>ВАВИЛОВ</span></div>
+        <nav>
+            <a class="hide-m" href="#about">Чем занимаюсь</a>
+            <a href="#path">Путь</a>
+            <a href="#next">Дальше</a>
+            <a class="nav-cta" href="#contact">Внедрение</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="hero-halo" aria-hidden="true"></div>
+        <div class="wrap">
+            <div class="kicker reveal"><span class="dot"></span> 18 лет · сейчас делаю ИИ-администратора</div>
+
+            <h1 id="heroTitle">ИИ-решения, которые <span class="hot">экономят бизнесу время и деньги</span></h1>
+
+            <p class="reveal">Привет, я Тимур. Делаю ИИ-решения для бизнеса: они берут на себя рутину, ускоряют процессы
+                и экономят компании время и деньги. Здесь коротко о том, с чего я начинал и как к этому пришёл.</p>
+
+            <div class="actions reveal">
+                <a class="btn magnetic" href="https://t.me/timqaa17">Обсудить внедрение <span class="arrow">→</span></a>
+                <a class="btn btn-ghost magnetic" href="#path">Как я к этому пришёл</a>
+            </div>
+
+            <div class="stats reveal">
+                <div class="stat"><b><em data-count="18">18</em> лет</b><span>студент РТУ МИРЭА</span></div>
+                <div class="stat"><b><em data-count="6">6</em>+ проектов</b><span>сделал сам, от идеи до запуска</span></div>
+                <div class="stat"><b><em data-count="500">500</em>+ часов</b><span>уделено ИИ и бизнесу с конца августа</span></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+            <span>ИИ-администраторы</span><span>Оптимизация процессов</span><span>Автоматизация рутины</span>
+            <span>Сайты</span><span>Видео с ИИ</span><span>Экономия времени</span>
+            <span>ИИ-администраторы</span><span>Оптимизация процессов</span><span>Автоматизация рутины</span>
+            <span>Сайты</span><span>Видео с ИИ</span><span>Экономия времени</span>
+        </div>
+    </div>
+
+    <section id="about">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-num">01 / ЧЕМ ЗАНИМАЮСЬ</div>
+                <h2>Что я делаю</h2>
+                <p>Беру рутину, на которой бизнес теряет деньги, и отдаю её ИИ. Всё собираю сам, от идеи до запуска.</p>
+            </div>
+
+            <div class="works">
+                <div class="work spot tilt reveal d1">
+                    <div class="shot s1"><span class="ic">✦</span>ИИ-администратор</div>
+                    <div class="work-body">
+                        <h3>Отвечает клиентам вместо менеджера</h3>
+                        <p>Пишет в мессенджерах круглые сутки, видит свободные даты и цены, а сложные вопросы передаёт живому человеку.</p>
+                    </div>
+                </div>
+                <div class="work spot tilt reveal d2">
+                    <div class="shot s2"><span class="ic">⚙</span>Оптимизация</div>
+                    <div class="work-body">
+                        <h3>Оптимизация процессов</h3>
+                        <p>Нахожу, где компания тратит часы на ручную работу: заявки, переписку, отчёты, и передаю это ИИ. Меньше рутины, меньше расходов.</p>
+                    </div>
+                </div>
+                <div class="work spot tilt reveal d1">
+                    <div class="shot s3"><span class="ic">◧</span>Сайты</div>
+                    <div class="work-body">
+                        <h3>Сайты, которые приводят клиентов</h3>
+                        <p>Сайт для компании брата, редизайн сайта дилера сельхозтехники. Быстро и удобно с телефона.</p>
+                    </div>
+                </div>
+                <div class="work spot tilt reveal d2">
+                    <div class="shot s4"><span class="ic">▶</span>Видео с ИИ</div>
+                    <div class="work-body">
+                        <h3>Рилсы и видео с ИИ</h3>
+                        <p>Видеоменю для кафе, ролики про свои проекты, ИИ-аватар. В Instagram показываю, как это делается.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="path">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-num">02 / ПУТЬ</div>
+                <h2>С чего начинал</h2>
+                <p>Ещё в августе я ничего не знал про ИИ и бизнес. Меньше чем за два месяца это стало главным делом моей жизни.</p>
+            </div>
+
+            <div class="timeline" id="timeline">
+                <div class="rail" aria-hidden="true"><div class="fill" id="railFill"></div></div>
+
+                <div class="milestone spot reveal" style="position:relative">
+                    <div class="pin">1</div>
+                    <div class="when">Конец августа</div>
+                    <h3>Начал изучать ИИ по 10 часов в день</h3>
+                    <p>В конце августа впервые серьёзно сел за ИИ и не смог остановиться. Сидел по 10 часов в день и стал одержим
+                       одной мыслью: построить своё дело и добиться успеха сам. Первой целью поставил купить Audi A5 на свои деньги.</p>
+                </div>
+                <div class="milestone spot reveal" style="position:relative">
+                    <div class="pin">2</div>
+                    <div class="when">Сентябрь</div>
+                    <h3>Месяц учёбы по 8+ часов каждый день</h3>
+                    <p>Весь сентябрь разбирался, как работают нейросети и как на них строить продукты. Учился общаться с клиентами:
+                       писать первым, не бояться отказов, объяснять пользу простыми словами.</p>
+                    <p>Тогда же сделал первый проект, АвтоПост: Telegram-бот для продавцов авто из Кореи.
+                       Сам поднял сервер и разобрался с законом о персональных данных. В нём больше 140 версий кода.</p>
+                    <p class="quote">Главный вывод: сделать продукт мало, его ещё надо продать.</p>
+                </div>
+                <div class="milestone spot reveal" style="position:relative">
+                    <div class="pin">3</div>
+                    <div class="when">Начало октября</div>
+                    <h3>Книга, написанная под меня</h3>
+                    <p>Понял, что расти мешают не навыки, а мышление. Попросил ИИ разобрать 12 известных бизнесменов и сравнить их подход
+                       с моим по десяткам наших рабочих сессий. Потом прошёл опрос из 46 вопросов, и ИИ написал книгу на 28 страниц
+                       только про мои слабые места, с упражнениями и планом на 30 дней.</p>
+                    <p>Прочитал её в самолёте до Казани и прилетел уже с другим взглядом на цены, продажи и деньги.</p>
+                    <div class="reel">
+                        <video id="bookReel" src="media/kniga.mp4#t=0.1" controls playsinline preload="metadata"
+                               aria-label="Ролик про книгу, написанную ИИ под меня"></video>
+                        <div class="reel-end" id="reelEnd" hidden>
+                            <b>Хочешь такую же книгу под себя?</b>
+                            <p>Напиши мне в Telegram, и я вышлю промпт, с которым ИИ напишет её для тебя.</p>
+                            <a class="btn" href="https://t.me/timqaa17">Получить промпт</a>
+                            <button type="button" id="reelReplay">↻ Смотреть заново</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="milestone spot reveal" style="position:relative">
+                    <div class="pin">4</div>
+                    <div class="when">Октябрь</div>
+                    <h3>Больше 6 проектов</h3>
+                    <p>Сайт для компании брата, редизайн сайта дилера сельхозтехники, видеоменю для кофейни, ролики с ИИ-аватаром.
+                       На каждом проекте понимал всё лучше: бизнесу нужен не просто сайт, а то, что приводит и удерживает клиентов.</p>
+                </div>
+                <div class="milestone spot reveal" style="position:relative">
+                    <div class="pin">5</div>
+                    <div class="when">Сейчас</div>
+                    <h3>47 часов ждал ответа и взялся за ИИ-администратора</h3>
+                    <p>Бронировал домик в загородном клубе и почти двое суток ждал ответа на простой вопрос.
+                       Подумал, сколько клиентов они так теряют каждый день. Теперь развиваю ИИ-администратора,
+                       который отвечает за секунды и сам доводит клиента до брони.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-num">03 / ВРЕМЯ</div>
+                <h2>Сколько в это вложил</h2>
+                <p>С 26 августа по сегодня почти без выходных, по 8–9 часов в день. Это больше 500 часов, как три месяца полной рабочей недели.</p>
+            </div>
+
+            <div class="time-grid">
+                <div class="time-card spot reveal d1">
+                    <div class="big"><em data-count="10">10</em> часов в день</div>
+                    <p>Столько сидел в конце августа, когда только начинал и не мог оторваться.</p>
+                </div>
+                <div class="time-card spot reveal d2">
+                    <div class="big"><em data-count="8">8</em>+ часов в день</div>
+                    <p>Весь сентябрь и октябрь. Днём пары в МИРЭА, остальное время проекты, клиенты и учёба.</p>
+                </div>
+                <div class="time-card spot reveal d3">
+                    <div class="big"><em data-count="500">500</em>+ часов</div>
+                    <p>Всего за неполные два месяца. Курсы, книги, YouTube и подкасты, но больше всего учит то, что делаю руками.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="next">
+        <div class="wrap">
+            <div class="sec-head reveal">
+                <div class="sec-num">04 / СЛЕДУЮЩИЙ ПРОЕКТ</div>
+                <h2>ИИ-администратор</h2>
+                <p>Помощник, который отвечает клиентам сразу, а не через два дня. Чтобы ни одна заявка не потерялась.</p>
+            </div>
+
+            <div class="next reveal">
+                <div>
+                    <h3>Клиент пишет ночью, и ему <em>сразу</em> отвечают</h3>
+                    <p class="lead">Отвечает, отрабатывает сомнения, бронирует и напоминает. Делает всю работу администратора,
+                        только без выходных и без забытых заявок.</p>
+                    <ul>
+                        <li><b>Знает факты.</b> Свободные даты и цены берёт из системы бронирования, а не придумывает.</li>
+                        <li><b>Доводит до брони.</b> Сам записывает клиента или присылает готовую ссылку на оплату.</li>
+                        <li><b>Не отпускает клиента.</b> Отвечает на «дорого» и «подумаю», а если человек пропал, мягко напоминает о себе.</li>
+                    </ul>
+                </div>
+                <div class="phone" aria-label="Пример диалога с ИИ-администратором">
+                    <div class="chat-top"><div class="ava">ИИ</div><div><b>ИИ-администратор</b><small>● онлайн</small></div></div>
+                    <div class="chat" id="chat">
+                        <div class="msg in">Здравствуйте! Хотим домик на субботу, 24 октября, нас четверо<small>23:47</small></div>
+                        <div class="typing" aria-hidden="true"><i></i><i></i><i></i></div>
+                        <div class="msg out">Добрый вечер! На 24.10 свободны два:
+                            <span class="tariff"><b>🏠 «Шале»</b> до 4 гостей · <b>18 000 ₽</b></span>
+                            <span class="tariff"><b>🏡 «Семейный» с баней</b> до 6 гостей · <b>24 000 ₽</b></span>
+                            Цена за ночь, завтрак включён.<small>23:47</small></div>
+                        <div class="msg in">Дороговато, рассчитывали тысяч на 12<small>23:48</small></div>
+                        <div class="msg out">Понимаю! В будни дешевле. 27.10, во вторник, «Шале» стоит:
+                            <span class="tariff">Тариф «Будни» · <b>12 500 ₽</b></span>
+                            <span class="tariff">«Ранняя бронь», оплата сегодня · <b>11 250 ₽</b></span>
+                            Завтрак тоже входит. Подойдёт?<small>23:48</small></div>
+                        <div class="msg in">Да, давайте на 27-е по ранней брони<small>23:49</small></div>
+                        <div class="msg out">Отлично! Скинул вам ссылку на бронь, там уже выбран тариф и все условия:
+                            <span class="linkcard">
+                                <span class="lc-site">Бронирование · загородный клуб</span>
+                                <b>«Шале», 27–28 октября</b>
+                                <span class="lc-row">Тариф «Ранняя бронь» · <b>11 250 ₽</b></span>
+                                <span class="lc-row">4 гостя, завтрак включён</span>
+                                <span class="lc-row">Заезд с 14:00, выезд до 12:00</span>
+                                <span class="lc-row">Предоплата 30% (3 375 ₽), остальное на месте</span>
+                                <span class="lc-row">Бесплатная отмена за 3 дня</span>
+                                <span class="lc-btn">Оформить бронь →</span>
+                            </span>
+                            Держу домик за вами 30 минут. Накануне напомню и пришлю, как доехать.<small>23:49</small></div>
+                    </div>
+                    <div class="speed">Время ответа: <b>3 секунды</b> вместо 47 часов</div>
+                </div>
+            </div>
+
+            <div class="feats">
+                <div class="feat spot reveal d1"><span class="fi">⚡</span><h4>Отвечает за секунды</h4><p>Круглосуточно, в Telegram, WhatsApp и на сайте. Ночью и в выходные тоже.</p></div>
+                <div class="feat spot reveal d2"><span class="fi">📅</span><h4>Знает свободные даты и цены</h4><p>Берёт их из системы бронирования в реальном времени, поэтому не ошибается и не выдумывает.</p></div>
+                <div class="feat spot reveal d3"><span class="fi">✅</span><h4>Записывает и бронирует</h4><p>Сам оформляет запись или бронь, а если удобнее, присылает ссылку, где клиент оплатит за минуту.</p></div>
+                <div class="feat spot reveal d4"><span class="fi">💬</span><h4>Отрабатывает возражения</h4><p>На «дорого», «подумаю», «а у других дешевле» объясняет ценность и предлагает подходящий вариант.</p></div>
+                <div class="feat spot reveal d1"><span class="fi">🎯</span><h4>Дожимает</h4><p>Если клиент спросил и пропал, через время сам напишет ему ещё раз. Заявки не теряются.</p></div>
+                <div class="feat spot reveal d2"><span class="fi">🔔</span><h4>Напоминает</h4><p>Накануне визита напоминает о записи и присылает адрес, чтобы клиент не забыл и не опоздал.</p></div>
+                <div class="feat spot reveal d3"><span class="fi">🙋</span><h4>Зовёт менеджера</h4><p>Если вопрос сложный или нестандартный, сразу передаёт его живому человеку с историей переписки.</p></div>
+                <div class="feat spot reveal d4"><span class="fi">📊</span><h4>Считает результат</h4><p>Показывает, сколько людей написало, сколько забронировало и сколько денег принёс помощник.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="wrap">
+            <div class="honest spot reveal">
+                <b>Честно о себе</b>
+                <p>Мне 18, я учусь и параллельно строю своё. Легко даётся видеть, где бизнес теряет деньги.
+                   Учусь продавать и говорить с директорами на равных.</p>
+                <p>Хочу своё дело, которое работает без меня, и иду к нему шаг за шагом.</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer id="contact">
+    <div class="wrap">
+        <div class="contact-grid">
+            <div class="reveal">
+                <div class="sec-num">05 / ВНЕДРЕНИЕ В ВАШ БИЗНЕС</div>
+                <h2>Хотите так же <em>у себя?</em></h2>
+                <p>Если клиенты ждут ответа часами или есть рутина, которую хочется отдать ИИ, напишите мне в Telegram.
+                   Разберёмся, где вы теряете заявки, и я сам внедрю ИИ-решение, которое сэкономит вам время и деньги.
+                   Первый разговор ни к чему не обязывает.</p>
+                <a class="btn magnetic" href="https://t.me/timqaa17">Обсудить внедрение <span class="arrow">→</span></a>
+            </div>
+
+            <div class="contact-links reveal d2">
+                <a class="contact-link" href="https://t.me/timqaa17">@timqaa17 <span>Telegram</span></a>
+                <a class="contact-link" href="https://instagram.com/timur.v.ai">timur.v.ai <span>Instagram</span></a>
+                <a class="contact-link" href="#next">ИИ-администратор <span>подробнее выше</span></a>
+            </div>
+        </div>
+
+        <div class="copyright">
+            <div>© 2026 Тимур Вавилов · ИИ-решения для бизнеса</div>
+            <div>Москва</div>
+        </div>
+    </div>
+</footer>
+
+<script>
+(function () {
+    "use strict";
+
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    var root = document.documentElement;
+
+    // заголовок: слова вылетают по очереди
+    var title = document.getElementById("heroTitle");
+    if (title && !reduceMotion) {
+        var n = 0;
+        (function split(node) {
+            Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+                if (child.nodeType === 3) {
+                    var frag = document.createDocumentFragment();
+                    child.textContent.split(/(\s+)/).forEach(function (part) {
+                        if (!part) return;
+                        if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+                        var s = document.createElement("span");
+                        s.className = "w"; s.textContent = part;
+                        s.style.animationDelay = (0.1 + n++ * 0.07) + "s";
+                        frag.appendChild(s);
+                    });
+                    node.replaceChild(frag, child);
+                } else if (child.nodeType === 1) {
+                    split(child);
+                }
+            });
+        })(title);
+    }
+
+    // счётчики
+    function countUp(el) {
+        var to = +el.getAttribute("data-count"), start = null, dur = 1400;
+        function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min(1, (ts - start) / dur);
+            el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+            if (p < 1) requestAnimationFrame(step);
+        }
+        el.textContent = "0";
+        requestAnimationFrame(step);
+    }
+
+    // чат ИИ-администратора: печатает и отвечает
+    var chatStarted = false;
+    function playChat() {
+        if (chatStarted) return;
+        chatStarted = true;
+        var chat = document.getElementById("chat");
+        var msgs = chat.querySelectorAll(".msg");
+        var typing = chat.querySelector(".typing");
+        if (reduceMotion) { msgs.forEach(function (m) { m.classList.add("show"); }); return; }
+
+        function run() {
+            msgs.forEach(function (m) { m.classList.remove("show"); });
+            var t = 300;
+            msgs.forEach(function (m) {
+                if (m.classList.contains("out")) {
+                    setTimeout(function () { chat.insertBefore(typing, m); typing.classList.add("show"); }, t);
+                    t += 1100;
+                    setTimeout(function () { typing.classList.remove("show"); m.classList.add("show"); }, t);
+                } else {
+                    setTimeout(function () { m.classList.add("show"); }, t);
+                }
+                t += 900;
+            });
+            setTimeout(run, t + 3500);
+        }
+        run();
+    }
+
+    // ролик про книгу: вместо концовки «пиши ПРОМПТ в комментах» показываем свою
+    var reel = document.getElementById("bookReel");
+    var reelEnd = document.getElementById("reelEnd");
+    if (reel && reelEnd) {
+        var CUT = 33.0;
+        function endReel() { reel.pause(); reelEnd.hidden = false; }
+        reel.addEventListener("timeupdate", function () { if (reel.currentTime >= CUT) endReel(); });
+        reel.addEventListener("ended", endReel);
+        document.getElementById("reelReplay").addEventListener("click", function () {
+            reelEnd.hidden = true; reel.currentTime = 0; reel.play();
+        });
+    }
+
+    // появление при прокрутке
+    if ("IntersectionObserver" in window && !reduceMotion) {
+        root.classList.add("js");
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                e.target.classList.add("in");
+                e.target.querySelectorAll("[data-count]").forEach(countUp);
+                if (e.target.querySelector("#chat")) playChat();
+                io.unobserve(e.target);
+            });
+        }, { rootMargin: "0px 0px -10% 0px" });
+        document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+    } else {
+        playChat();
+    }
+
+    // полоса прогресса и линия пути
+    var bar = document.getElementById("progressBar");
+    var timeline = document.getElementById("timeline");
+    var fill = document.getElementById("railFill");
+    var stones = timeline ? timeline.querySelectorAll(".milestone") : [];
+    var ticking = false;
+
+    function onScroll() {
+        var max = root.scrollHeight - window.innerHeight;
+        var p = max > 0 ? window.scrollY / max : 0;
+        bar.style.transform = "scaleX(" + p.toFixed(4) + ")";
+
+        if (timeline) {
+            var r = timeline.getBoundingClientRect();
+            var mark = window.innerHeight * 0.6;
+            var tp = Math.min(1, Math.max(0, (mark - r.top) / r.height));
+            fill.style.transform = "scaleY(" + tp.toFixed(4) + ")";
+            stones.forEach(function (s) {
+                s.classList.toggle("lit", s.getBoundingClientRect().top + 30 < mark);
+            });
+        }
+        ticking = false;
+    }
+    window.addEventListener("scroll", function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+    }, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    onScroll();
+
+    if (!canHover || reduceMotion) return;
+
+    // свет за курсором
+    var glow = document.getElementById("cursorGlow");
+    var mx = innerWidth / 2, my = innerHeight / 2, gx = mx, gy = my, glowQueued = false;
+    function glowLoop() {
+        gx += (mx - gx) * 0.12; gy += (my - gy) * 0.12;
+        glow.style.transform = "translate3d(" + gx.toFixed(1) + "px," + gy.toFixed(1) + "px,0)";
+        if (Math.abs(mx - gx) > 0.4 || Math.abs(my - gy) > 0.4) requestAnimationFrame(glowLoop); else glowQueued = false;
+    }
+    window.addEventListener("mousemove", function (e) {
+        mx = e.clientX; my = e.clientY;
+        glow.style.opacity = "1";
+        if (!glowQueued) { glowQueued = true; requestAnimationFrame(glowLoop); }
+    }, { passive: true });
+    document.addEventListener("mouseleave", function () { glow.style.opacity = "0"; });
+
+    // подсветка карточек и наклон
+    document.querySelectorAll(".spot").forEach(function (el) {
+        var tilt = el.classList.contains("tilt");
+        el.addEventListener("mousemove", function (e) {
+            var r = el.getBoundingClientRect();
+            var x = e.clientX - r.left, y = e.clientY - r.top;
+            el.style.setProperty("--mx", x + "px");
+            el.style.setProperty("--my", y + "px");
+            if (tilt) {
+                var rx = ((y / r.height) - 0.5) * -8, ry = ((x / r.width) - 0.5) * 8;
+                el.style.transform = "rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg) translateY(-4px)";
+            }
+        });
+        if (tilt) el.addEventListener("mouseleave", function () { el.style.transform = ""; });
+    });
+
+    // кнопки тянутся к курсору
+    document.querySelectorAll(".magnetic").forEach(function (b) {
+        b.addEventListener("mousemove", function (e) {
+            var r = b.getBoundingClientRect();
+            var x = e.clientX - r.left - r.width / 2, y = e.clientY - r.top - r.height / 2;
+            b.style.transform = "translate(" + (x * 0.18).toFixed(1) + "px," + (y * 0.25).toFixed(1) + "px)";
+        });
+        b.addEventListener("mouseleave", function () { b.style.transform = ""; });
+    });
+})();
+</script>
+
+</body>
+</html>
