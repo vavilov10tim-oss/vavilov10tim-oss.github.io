@@ -429,33 +429,96 @@
             .contact-grid { grid-template-columns: 1fr; gap: 26px; }
             section { padding: 64px 0; }
         }
+        /* ТЕЛЕФОН: компактнее и легче читать */
         @media (max-width: 640px) {
+            :root { --muted: #b8afad; --radius: 16px; }
+            body { line-height: 1.55; }
             .wrap { padding: 0 16px; }
-            .hero { padding: 60px 0 44px; }
-            .hero-halo { width: 480px; height: 480px; margin-left: -240px; }
-            .hero h1 { font-size: 34px; letter-spacing: -1px; }
-            .hero p { font-size: 16px; }
-            .kicker { font-size: 11px; letter-spacing: 1px; }
-            section { padding: 52px 0; }
-            .sec-head h2 { font-size: 28px; }
-            .works, .stats { grid-template-columns: 1fr; }
-            .stats { gap: 10px; margin-top: 30px; }
-            .stat { padding: 14px 16px; }
-            .stat b { font-size: 24px; }
-            nav { gap: 14px; }
-            nav a { font-size: 14px; }
-            nav .hide-m { display: none; }
-            .shot { height: 104px; }
-            .timeline { padding-left: 48px; }
-            .timeline .rail { left: 14px; }
-            .milestone { padding: 20px; }
-            .milestone .pin { left: -48px; width: 30px; height: 30px; font-size: 13px; }
-            .next { padding: 22px 18px; }
-            .next h3 { font-size: 24px; }
-            .honest { padding: 24px 20px; }
-            .contact-grid h2 { font-size: 32px; }
-            .btn { width: 100%; justify-content: center; }
-            .glow { filter: blur(70px); }
+            header .wrap { flex-wrap: nowrap; padding-top: 11px; padding-bottom: 11px; }
+            .name { font-size: 15px; white-space: nowrap; }
+            nav { gap: 12px; }
+            nav a { font-size: 13px; }
+            nav .hide-m, nav a[href="#next"] { display: none; }
+            .nav-cta { padding: 6px 12px; }
+
+            .glow { filter: blur(60px); opacity: 0.6; }
+            .glow-1, .glow-2, .glow-3 { width: 320px; height: 320px; }
+            .grain { display: none; }
+            .hero-halo { width: 340px; height: 340px; margin-left: -170px; opacity: 0.35; }
+
+            .hero { padding: 36px 0 30px; }
+            .kicker { font-size: 10.5px; letter-spacing: 0.8px; margin-bottom: 16px; padding: 5px 10px; }
+            .hero h1 { font-size: 29px; line-height: 1.12; letter-spacing: -0.8px; margin-bottom: 14px; }
+            .hero p { font-size: 15.5px; margin-bottom: 22px; }
+            .actions { gap: 10px; }
+            .btn { width: 100%; justify-content: center; padding: 14px 20px; font-size: 15px; }
+            .stats { grid-template-columns: 1fr; gap: 8px; margin-top: 22px; }
+            .stat { display: flex; align-items: baseline; gap: 10px; padding: 11px 14px; border-radius: 12px; }
+            .stat b { font-size: 19px; white-space: nowrap; }
+            .stat span { font-size: 13px; line-height: 1.3; }
+
+            .marquee { padding: 11px 0; }
+            .marquee span { font-size: 12px; letter-spacing: 1.6px; }
+            .marquee-track { gap: 24px; }
+            .marquee span::after { margin-left: 24px; }
+
+            section { padding: 40px 0; }
+            .sec-head { margin-bottom: 20px; }
+            .sec-num { font-size: 11px; margin-bottom: 6px; }
+            .sec-head h2 { font-size: 24px; letter-spacing: -0.5px; margin-bottom: 6px; }
+            .sec-head p { font-size: 15px; }
+
+            .works { grid-template-columns: 1fr; gap: 10px; }
+            .shot { height: 46px; justify-content: flex-start; padding-left: 16px; font-size: 11px; letter-spacing: 2px; }
+            .shot .ic { font-size: 16px; margin-right: 8px; }
+            .work-body { padding: 14px 16px 16px; gap: 4px; }
+            .work-body h3 { font-size: 16px; }
+            .work-body p { font-size: 14.5px; }
+
+            .timeline { padding-left: 34px; gap: 12px; }
+            .timeline .rail { left: 11px; top: 14px; bottom: 14px; }
+            .milestone { padding: 16px; }
+            .milestone .pin { left: -34px; top: 16px; width: 24px; height: 24px; font-size: 11px; }
+            .when { font-size: 11px; margin-bottom: 2px; }
+            .milestone h3 { font-size: 17px; line-height: 1.3; margin-bottom: 6px; }
+            .milestone p { font-size: 14.5px; }
+            .reel { max-width: 230px; margin: 14px auto 0; }
+            .reel-end { padding: 16px; }
+            .reel-end b { font-size: 17px; }
+
+            .time-grid { gap: 10px; }
+            .time-card { padding: 16px; }
+            .time-card .big { font-size: 22px; margin-bottom: 4px; }
+            .time-card p { font-size: 14.5px; }
+
+            .next { padding: 18px 14px; border-radius: 18px; gap: 20px; }
+            .next h3 { font-size: 21px; margin-bottom: 8px; }
+            .next .lead { font-size: 15px; margin-bottom: 14px; }
+            .next ul { gap: 8px; }
+            .next li { font-size: 14px; }
+            .phone { padding: 12px; border-radius: 20px; min-height: 0; }
+            .msg { font-size: 13.5px; max-width: 90%; }
+            .tariff, .linkcard { font-size: 12.5px; }
+            .speed { font-size: 11.5px; }
+
+            .feats { grid-template-columns: 1fr; gap: 8px; margin-top: 14px; }
+            .feat { display: grid; grid-template-columns: 38px 1fr; column-gap: 12px; padding: 13px 14px; border-radius: 14px; }
+            .feat .fi { grid-row: span 2; width: 38px; height: 38px; font-size: 18px; margin: 0; border-radius: 10px; }
+            .feat h4 { font-size: 15px; margin-bottom: 2px; }
+            .feat p { font-size: 13.5px; }
+
+            .honest { padding: 18px 16px; }
+            .honest b { font-size: 16px; }
+            .honest p { font-size: 15px; }
+
+            footer { padding: 44px 0 32px; }
+            .contact-grid { gap: 20px; }
+            .contact-grid h2 { font-size: 26px; }
+            .contact-grid p { font-size: 15px; margin-bottom: 18px; }
+            .contact-link { padding: 13px 16px; font-size: 15px; }
+            .copyright { margin-top: 28px; font-size: 12px; }
+
+            .js .reveal { filter: none; transform: translateY(16px); }
             .cursor-glow { display: none; }
         }
         @media (prefers-reduced-motion: reduce) {
