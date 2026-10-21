@@ -299,7 +299,7 @@
         .ava { width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--red), var(--red-deep)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; box-shadow: 0 0 16px rgba(255,45,61,0.6); }
         .chat-top b { display: block; font-size: 14px; }
         .chat-top small { color: #4ade80; font-size: 12px; }
-        .chat { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .chat { position: relative; display: flex; flex-direction: column; gap: 10px; flex: 1; }
         .msg {
             padding: 10px 14px; border-radius: 16px; font-size: 14px; max-width: 86%; line-height: 1.45;
             opacity: 0; transform: translateY(10px) scale(0.96);
@@ -342,8 +342,8 @@
             display: block; margin: 6px 0; padding: 7px 10px; border-radius: 10px;
             background: rgba(0,0,0,0.22); border: 1px solid rgba(255,255,255,0.18); font-size: 13px;
         }
-        .typing { align-self: flex-end; display: none; gap: 4px; padding: 12px 14px; border-radius: 16px; background: rgba(255,45,61,0.2); }
-        .typing.show { display: inline-flex; }
+        .typing { position: absolute; right: 0; top: 0; display: inline-flex; gap: 4px; padding: 12px 14px; border-radius: 16px; background: rgba(255,45,61,0.2); opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
+        .typing.show { opacity: 1; }
         .typing i { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: bounce 1s infinite; }
         .typing i:nth-child(2) { animation-delay: 0.15s; } .typing i:nth-child(3) { animation-delay: 0.3s; }
         @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.5; } 30% { transform: translateY(-5px); opacity: 1; } }
@@ -702,12 +702,12 @@
     <section class="hero" id="top">
         <div class="hero-halo" aria-hidden="true"></div>
         <div class="wrap">
-            <div class="kicker reveal"><span class="dot"></span> ИИ-администратор · ответ за 3 секунды</div>
+            <div class="kicker reveal"><span class="dot"></span> ИИ-администратор для вашего бизнеса</div>
 
             <h1 id="heroTitle">Пока менеджер спит, <span class="hot">клиенты уходят к конкурентам</span></h1>
 
-            <p class="reveal">Я Тимур, делаю ИИ-решения для бизнеса. Мой ИИ-администратор отвечает клиентам за секунды,
-                бронирует, отрабатывает «дорого» и не даёт заявкам потеряться. Посчитайте, сколько теряете вы.</p>
+            <p class="reveal">Я Тимур, внедряю ИИ-администраторов. Он отвечает вашим клиентам за 3 секунды днём и ночью,
+                сам записывает и бронирует, и ни одна заявка больше не теряется. Посчитайте, сколько это стоит вам сейчас.</p>
 
             <div class="actions reveal">
                 <a class="btn magnetic" href="#calc">Посчитать мои потери <span class="arrow">↓</span></a>
@@ -715,9 +715,9 @@
             </div>
 
             <div class="stats reveal">
-                <div class="stat"><b><em data-count="3">3</em> сек</b><span>время ответа вместо часов</span></div>
-                <div class="stat"><b><em>24/7</em></b><span>без выходных и больничных</span></div>
-                <div class="stat"><b><em data-count="500">500</em>+ часов</b><span>я вложил в ИИ с конца августа</span></div>
+                <div class="stat"><b><em data-count="3">3</em> сек</b><span>ответ клиенту в любое время суток</span></div>
+                <div class="stat"><b><em>24/7</em></b><span>без выходных, отпусков и больничных</span></div>
+                <div class="stat"><b><em data-count="7">7</em> дней</b><span>бесплатного теста на ваших клиентах</span></div>
             </div>
         </div>
     </section>
@@ -1171,7 +1171,7 @@
             var t = 300;
             msgs.forEach(function (m) {
                 if (m.classList.contains("out")) {
-                    setTimeout(function () { chat.insertBefore(typing, m); typing.classList.add("show"); }, t);
+                    setTimeout(function () { typing.style.top = m.offsetTop + "px"; typing.classList.add("show"); }, t);
                     t += 1100;
                     setTimeout(function () { typing.classList.remove("show"); m.classList.add("show"); }, t);
                 } else {
