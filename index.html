@@ -493,6 +493,26 @@
         .calc-out .btn { margin-top: 14px; align-self: flex-start; }
         .calc-note { margin-top: 12px; color: var(--muted); font-size: 13px; }
 
+        .calc-how {
+            margin-top: 16px; padding: 18px 20px; border-radius: 16px;
+            background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.28);
+        }
+        .ch-title { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 16px; margin-bottom: 12px; }
+        .ch-ic { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+            background: #fff; color: var(--bg); font-size: 13px; font-weight: 800; font-style: italic; font-family: Georgia, serif; }
+        .eq { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .eq i { font-style: normal; color: var(--muted); font-weight: 700; }
+        .eq-v { padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid var(--line); font-size: 14px; font-weight: 600; white-space: nowrap; }
+        .eq-r { padding: 6px 14px; border-radius: 999px; background: rgba(255,45,61,0.18); border: 1px solid rgba(255,45,61,0.6); color: #fff; font-weight: 800; font-size: 15px; white-space: nowrap; }
+        .calc-how p { color: var(--muted); font-size: 14px; }
+        @media (max-width: 640px) {
+            .calc-how { padding: 14px; }
+            .eq { gap: 6px; }
+            .eq-v { font-size: 12.5px; padding: 5px 10px; }
+            .eq-r { font-size: 13.5px; }
+            .calc-how p { font-size: 13.5px; }
+        }
+
         /* ДЛЯ КОГО */
         .niches { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
         .niche { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; transition: transform 0.3s var(--ease), border-color 0.3s ease; }
@@ -769,7 +789,17 @@
                     <a class="btn magnetic" href="https://t.me/timqaa17">Разобрать мои цифры бесплатно <span class="arrow">→</span></a>
                 </div>
             </div>
-            <p class="calc-note reveal">Как считаем: заявки без ответа × 30 дней × ваша конверсия × средний чек. Если бы этим людям ответили сразу, они покупали бы так же, как ваши остальные клиенты. Точнее посчитаем на бесплатном разборе.</p>
+            <div class="calc-how reveal">
+                <div class="ch-title"><span class="ch-ic">i</span> Как считаем</div>
+                <div class="eq">
+                    <span class="eq-v" id="eMissed">3 заявки в день</span><i>×</i>
+                    <span class="eq-v">30 дней</span><i>×</i>
+                    <span class="eq-v" id="eConv">20% конверсия</span><i>×</i>
+                    <span class="eq-v" id="eCheck">5 000 ₽ чек</span><i>=</i>
+                    <span class="eq-r" id="eLoss">90 000 ₽</span>
+                </div>
+                <p>Если бы этим людям ответили сразу, они покупали бы так же, как ваши остальные клиенты. Точнее посчитаем на бесплатном разборе.</p>
+            </div>
             <div class="hook reveal"><a href="#who">Где именно теряются эти деньги, зависит от ниши. Найдите свою <span>↓</span></a></div>
         </div>
     </section>
@@ -1222,6 +1252,10 @@
         var loss = clients * check;
         lossYearEl.textContent = fmt(loss * 12);
         var c = Math.round(clients);
+        document.getElementById("eMissed").textContent = missed + " " + plural(missed, "заявка", "заявки", "заявок") + " в день";
+        document.getElementById("eConv").textContent = conv + "% конверсия";
+        document.getElementById("eCheck").textContent = fmt(check) + " чек";
+        document.getElementById("eLoss").textContent = fmt(loss) + " в месяц";
         formulaEl.textContent = missedMonth + " " + plural(missedMonth, "заявка", "заявки", "заявок") + " в месяц без ответа, это ≈ " + c + " " + plural(c, "клиент", "клиента", "клиентов") + ", которые купили бы у вас";
         if (reduceMotion) { lossEl.textContent = fmt(loss); shown = loss; return; }
         cancelAnimationFrame(lossAnim);
