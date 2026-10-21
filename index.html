@@ -430,6 +430,13 @@
         @media (min-width: 641px) { a.stat.jump b { font-size: 24px; } }
         @media (max-width: 640px) { .stats.two { grid-template-columns: 1fr; } }
 
+        .hero p.hero-now { margin-top: -18px; padding: 12px 16px; border-left: 3px solid var(--red); border-radius: 0 12px 12px 0;
+            background: rgba(255,45,61,0.08); color: #e8dedc; font-size: 16px; max-width: 640px; }
+        .hero-now span { display: inline-block; margin-right: 8px; padding: 2px 9px; border-radius: 999px; background: var(--red);
+            color: #fff; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; vertical-align: 2px; }
+        .hero-now b { color: #fff; }
+        @media (max-width: 640px) { .hero p.hero-now { margin-top: -10px; font-size: 14.5px; padding: 10px 12px; } }
+
         /* МЕНЮ: имя + кнопка, ниже полоса разделов с подсветкой текущего */
         header .head-row { padding-top: 12px; padding-bottom: 8px; flex-wrap: nowrap; }
         a.name { color: inherit; text-decoration: none; white-space: nowrap; }
@@ -734,8 +741,9 @@
 
             <h1 id="heroTitle">Пока менеджер спит, <span class="hot">клиенты уходят к конкурентам</span></h1>
 
-            <p class="reveal">Привет, я Тимур. Делаю ИИ-администраторов, которые отвечают вашим клиентам за секунды,
-                даже когда вы и ваша команда заняты или отдыхаете. Давайте посмотрим, сколько заявок это может вернуть вам.</p>
+<p class="reveal">Привет, я Тимур. Внедряю ИИ в бизнес: оптимизирую процессы и снимаю с команды рутину,
+                чтобы люди занимались клиентами, а не перепиской и таблицами.</p>
+            <p class="hero-now reveal"><span>Сейчас</span> работаю над проектом <b>ИИ‑администратора</b>: он отвечает клиентам за секунды и сам записывает их, даже ночью и в выходные.</p>
 
             <div class="actions reveal">
                 <a class="btn magnetic" href="#calc">Посчитать мои потери <span class="arrow">↓</span></a>
