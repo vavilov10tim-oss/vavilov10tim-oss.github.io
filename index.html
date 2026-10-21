@@ -739,8 +739,8 @@
         <div class="wrap">
             <div class="sec-head reveal">
                 <div class="sec-num">01 / ВАШИ ПОТЕРИ</div>
-                <h2>Сколько денег вы теряете на медленных ответах</h2>
-                <p>Подвигайте ползунки под свой бизнес. Посчитаем, сколько клиентов уходит, пока им не ответили.</p>
+                <h2>Сколько денег вы теряете, когда вам некому ответить</h2>
+                <p>Поставьте цифры своего бизнеса. Всё, кроме одного допущения, вы знаете сами.</p>
             </div>
 
             <div class="calc reveal">
@@ -750,13 +750,14 @@
                         <input type="range" id="cLeads" min="1" max="100" step="1" value="15">
                     </div>
                     <div class="field">
-                        <label for="cMiss">Остаются без быстрого ответа <output id="oMiss">30%</output></label>
-                        <input type="range" id="cMiss" min="5" max="80" step="5" value="30">
-                        <small>Ночь, выходные, менеджер занят или на другой линии</small>
+                        <label for="cHours">Сколько часов в день вы отвечаете клиентам <output id="oHours">10 ч</output></label>
+                        <input type="range" id="cHours" min="4" max="16" step="1" value="10">
+                        <small>Например, администратор работает с 10 до 20, значит 10 часов</small>
                     </div>
                     <div class="field">
-                        <label for="cConv">Из них купили бы, если ответить сразу <output id="oConv">25%</output></label>
-                        <input type="range" id="cConv" min="5" max="60" step="5" value="25">
+                        <label for="cConv">Сколько заявок сейчас становятся покупкой <output id="oConv">20%</output></label>
+                        <input type="range" id="cConv" min="5" max="60" step="5" value="20">
+                        <small>Ваша конверсия: из 10 написавших покупают 2, значит 20%</small>
                     </div>
                     <div class="field">
                         <label for="cCheck">Средний чек <output id="oCheck">5 000 ₽</output></label>
@@ -766,13 +767,13 @@
 
                 <div class="calc-out" aria-live="polite">
                     <div class="lbl">Вы теряете примерно</div>
-                    <div class="loss" id="loss">168 750 ₽</div>
-                    <div class="loss-year">в месяц, или <span id="lossYear">2 025 000 ₽</span> в год</div>
+                    <div class="loss" id="loss">84 375 ₽</div>
+                    <div class="loss-year">в месяц, или <span id="lossYear">1 012 500 ₽</span> в год</div>
                     <div class="formula" id="formula">≈ 34 клиента в месяц пишут вам и уходят к тем, кто ответил первым</div>
                     <a class="btn magnetic" href="https://t.me/timqaa17">Разобрать мои цифры бесплатно <span class="arrow">→</span></a>
                 </div>
             </div>
-            <p class="calc-note reveal">Это оценка. Точнее посчитаем на бесплатном разборе, по вашим реальным заявкам.</p>
+            <p class="calc-note reveal">Как считаем: клиенты пишут примерно 16 часов в сутки, с 8 утра до полуночи. Заявки, которые приходят, когда вам некому ответить, × ваша конверсия × средний чек. Единственное допущение: половина таких клиентов к утру уже купила у тех, кто ответил. Точнее посчитаем на бесплатном разборе.</p>
             <div class="hook reveal"><a href="#who">Где именно теряются эти деньги, зависит от ниши. Найдите свою <span>↓</span></a></div>
         </div>
     </section>
@@ -1202,23 +1203,35 @@
 
 
     // калькулятор потерь
-    var cIds = ["cLeads", "cMiss", "cConv", "cCheck"];
+    var cIds = ["cLeads", "cHours", "cConv", "cCheck"];
+    var ACTIVE_HOURS = 16;   // клиенты пишут примерно с 8:00 до 24:00
+    var GONE_SHARE = 0.5;    // допущение: половина тех, кому не ответили, к утру купила у других
     var cEls = cIds.map(function (id) { return document.getElementById(id); });
     var lossEl = document.getElementById("loss"), lossYearEl = document.getElementById("lossYear"), formulaEl = document.getElementById("formula");
     var fmt = function (n) { return Math.round(n).toLocaleString("ru-RU").replace(/,/g, " ") + " ₽"; };
     var shown = 0, lossAnim = null;
+    function plural(n, one, few, many) {
+        var m10 = n % 10, m100 = n % 100;
+        if (m10 === 1 && m100 !== 11) return one;
+        if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return few;
+        return many;
+    }
     function paintRange(el) { el.style.setProperty("--p", ((el.value - el.min) / (el.max - el.min) * 100) + "%"); }
     function calc() {
-        var leads = +cEls[0].value, miss = +cEls[1].value, conv = +cEls[2].value, check = +cEls[3].value;
+        var leads = +cEls[0].value, hours = +cEls[1].value, conv = +cEls[2].value, check = +cEls[3].value;
         document.getElementById("oLeads").textContent = leads;
-        document.getElementById("oMiss").textContent = miss + "%";
+        document.getElementById("oHours").textContent = hours + " ч";
         document.getElementById("oConv").textContent = conv + "%";
         document.getElementById("oCheck").textContent = fmt(check);
         cEls.forEach(paintRange);
-        var clients = leads * 30 * miss / 100 * conv / 100;
+        var offShare = Math.max(0, ACTIVE_HOURS - hours) / ACTIVE_HOURS;
+        var offLeads = leads * 30 * offShare;
+        var clients = offLeads * conv / 100 * GONE_SHARE;
         var loss = clients * check;
         lossYearEl.textContent = fmt(loss * 12);
-        formulaEl.textContent = "≈ " + Math.round(clients) + " клиентов в месяц пишут вам и уходят к тем, кто ответил первым";
+        formulaEl.textContent = offShare > 0
+            ? "≈ " + Math.round(offLeads) + " " + plural(Math.round(offLeads), "заявка", "заявки", "заявок") + " в месяц приходит, когда вам некому ответить. Из них ≈ " + Math.round(clients) + " " + plural(Math.round(clients), "клиент покупает", "клиента покупают", "клиентов покупают") + " у других"
+            : "Вы отвечаете всё время, пока клиенты пишут. Тогда ИИ-администратор скорее снимет нагрузку с менеджеров";
         if (reduceMotion) { lossEl.textContent = fmt(loss); shown = loss; return; }
         cancelAnimationFrame(lossAnim);
         var from = shown, t0 = null;
