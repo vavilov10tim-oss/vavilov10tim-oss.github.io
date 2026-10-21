@@ -421,6 +421,15 @@
             section { padding: 64px 0; }
         }
 
+        .stats.two { grid-template-columns: repeat(2, minmax(0,1fr)); max-width: 560px; }
+        a.stat.jump { color: inherit; text-decoration: none; border-color: rgba(255,45,61,0.4); background: rgba(255,45,61,0.08);
+            transition: transform 0.25s var(--ease), box-shadow 0.25s ease, border-color 0.25s ease; }
+        a.stat.jump:hover { transform: translateY(-3px); border-color: rgba(255,45,61,0.7); box-shadow: 0 0 30px rgba(255,45,61,0.25); }
+        a.stat.jump em { display: inline-block; animation: nudge 1.6s ease-in-out infinite; }
+        a.stat.jump b { white-space: nowrap; }
+        @media (min-width: 641px) { a.stat.jump b { font-size: 24px; } }
+        @media (max-width: 640px) { .stats.two { grid-template-columns: 1fr; } }
+
         /* МЕНЮ: имя + кнопка, ниже полоса разделов с подсветкой текущего */
         header .head-row { padding-top: 12px; padding-bottom: 8px; flex-wrap: nowrap; }
         a.name { color: inherit; text-decoration: none; white-space: nowrap; }
@@ -706,18 +715,15 @@
 
             <h1 id="heroTitle">Пока менеджер спит, <span class="hot">клиенты уходят к конкурентам</span></h1>
 
-            <p class="reveal">Я Тимур, внедряю ИИ-администраторов. Он отвечает вашим клиентам за 3 секунды днём и ночью,
-                сам записывает и бронирует, и ни одна заявка больше не теряется. Посчитайте, сколько это стоит вам сейчас.</p>
+            <p class="reveal">ИИ-администратор отвечает вашим клиентам за секунды и сам записывает их. Посчитайте, сколько вы теряете без него.</p>
 
             <div class="actions reveal">
                 <a class="btn magnetic" href="#calc">Посчитать мои потери <span class="arrow">↓</span></a>
-                <a class="btn btn-ghost magnetic" href="https://t.me/timqaa17">Бесплатный разбор</a>
             </div>
 
-            <div class="stats reveal">
-                <div class="stat"><b><em data-count="3">3</em> сек</b><span>ответ клиенту в любое время суток</span></div>
+            <div class="stats two reveal">
                 <div class="stat"><b><em>24/7</em></b><span>без выходных, отпусков и больничных</span></div>
-                <div class="stat"><b><em data-count="7">7</em> дней</b><span>бесплатного теста на ваших клиентах</span></div>
+                <a class="stat jump" href="#next"><b>Как он отвечает <em>↓</em></b><span>посмотреть переписку с клиентом</span></a>
             </div>
         </div>
     </section>
