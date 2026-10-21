@@ -277,7 +277,6 @@
             box-shadow: 0 0 80px rgba(255,45,61,0.14);
             display: grid; grid-template-columns: 1.15fr 1fr; gap: 36px; align-items: start;
         }
-        .next > div:first-child { position: sticky; top: 100px; }
         .next h3 { font-size: 30px; letter-spacing: -0.6px; line-height: 1.2; margin-bottom: 14px; }
         .next h3 em { font-style: normal; color: var(--red); }
         .next .lead { color: #d8cfcd; font-size: 16px; margin-bottom: 20px; }
@@ -416,7 +415,6 @@
             .hero h1 { font-size: 44px; }
             .time-grid { grid-template-columns: 1fr; }
             .next { grid-template-columns: 1fr; }
-            .next > div:first-child { position: static; }
             .contact-grid { grid-template-columns: 1fr; gap: 26px; }
             section { padding: 64px 0; }
         }
@@ -690,7 +688,6 @@
 <header>
     <div class="wrap head-row">
         <a class="name" href="#top">ТИМУР <span>ВАВИЛОВ</span></a>
-        <a class="head-cta" href="https://t.me/timqaa17">Бесплатный разбор</a>
     </div>
     <nav class="chips" aria-label="Разделы страницы">
         <div class="wrap chips-inner" id="chips">
@@ -719,6 +716,7 @@
 
             <div class="actions reveal">
                 <a class="btn magnetic" href="#calc">Посчитать мои потери <span class="arrow">↓</span></a>
+                <a class="btn btn-ghost magnetic" href="https://t.me/timqaa17">Бесплатный разбор</a>
             </div>
 
             <div class="stats two reveal">
@@ -1185,7 +1183,6 @@
                 }
                 t += 900;
             });
-            setTimeout(run, t + 3500);
         }
         run();
     }
