@@ -445,6 +445,16 @@
         .hero-now span { display: inline-block; margin-right: 8px; padding: 2px 9px; border-radius: 999px; background: var(--red);
             color: #fff; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; vertical-align: 2px; }
         .hero-now b { color: #fff; }
+        .hero-meet {
+            display: flex; align-items: center; gap: 12px; margin: -10px 0 28px; padding: 13px 18px;
+            border-radius: 14px; border: 1px solid rgba(255,45,61,0.45); background: rgba(255,45,61,0.07);
+            color: #e8dedc; text-decoration: none; font-size: 15px; max-width: 640px;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s var(--ease);
+        }
+        .hero-meet:hover { border-color: rgba(255,45,61,0.8); box-shadow: 0 0 30px rgba(255,45,61,0.25); transform: translateY(-2px); }
+        .hero-meet b { color: #fff; }
+        .hero-meet .m-arr { margin-left: auto; flex: none; color: var(--red); font-weight: 800; }
+        @media (max-width: 640px) { .hero-meet { margin: -4px 0 22px; font-size: 13.5px; padding: 11px 14px; } }
         @media (max-width: 640px) { .hero p.hero-now { margin-top: -10px; font-size: 14.5px; padding: 10px 12px; } }
 
         /* МЕНЮ: имя + кнопка, ниже полоса разделов с подсветкой текущего */
@@ -790,9 +800,11 @@
             <h1 id="heroTitle">Отдаю ИИ рутину, <span class="hot">на которой бизнес теряет деньги</span></h1>
 
 <p class="reveal">Привет, я Тимур. Собираю ИИ-продукты для бизнеса сам, от идеи до запуска:
-                администратор, который отвечает клиентам круглосуточно, видеоменю для кафе, сайты и автоматизация процессов.</p>
+                администратор, который отвечает клиентам круглосуточно, цифровое меню для кафе, сайты и автоматизация процессов.</p>
             <p class="hero-now reveal"><span>Сейчас</span> главные продукты: <b>цифровое меню</b> для кафе и ресторанов и <b>ИИ‑администратор</b>
                 для загородных клубов, который отвечает гостям за секунды и сам доводит до брони.</p>
+            <a class="hero-meet reveal" href="#meeting"><span><b>Первая встреча с представителями ресторанного бизнеса</b> уже состоялась:
+                показал цифровое меню, 30 минут живого разговора.</span><span class="m-arr">→</span></a>
 
             <div class="actions reveal">
                 <a class="btn magnetic" href="#products">Смотреть продукты <span class="arrow">↓</span></a>
@@ -1170,7 +1182,7 @@
                        Подумал, сколько клиентов они так теряют каждый день. Теперь это готовый продукт:
                        бот собран и работает на сервере, а я показываю демо загородным клубам Москвы и области.</p>
                 </div>
-                <div class="milestone spot reveal" style="position:relative">
+                <div class="milestone spot reveal" style="position:relative" id="meeting">
                     <div class="pin">6</div>
                     <div class="when">Ноябрь, сейчас</div>
                     <h3>Первая встреча с представителями ресторанного бизнеса</h3>
