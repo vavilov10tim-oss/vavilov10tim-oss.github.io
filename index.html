@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Тимур Вавилов</title>
-    <meta name="description" content="Тимур Вавилов, 18 лет. Делаю ИИ-решения для бизнеса, которые экономят время и деньги. С чего начинал, как к этому пришёл и что дальше.">
+    <meta name="description" content="Тимур Вавилов, 18 лет. Внедряю ИИ в бизнес: ИИ-администратор, видеоменю, сайты, автоматизация процессов. 700+ часов практики за три месяца.">
     <meta property="og:title" content="Тимур Вавилов">
-    <meta property="og:description" content="18 лет, внедряю ИИ в бизнес. Мой путь от первого проекта до ИИ-администратора.">
+    <meta property="og:description" content="18 лет, внедряю ИИ в бизнес. Готовый ИИ-администратор, видеоменю, сайты. Мой путь и продукты.">
     <meta name="theme-color" content="#070506">
 
     <style>
@@ -561,6 +561,48 @@
         .faq .ans { padding: 0 20px 18px; color: #cfc6c4; font-size: 15px; animation: ans-in 0.35s var(--ease); }
         @keyframes ans-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 
+        /* ПРОДУКТЫ-ПАПКИ */
+        .prods { display: flex; flex-direction: column; gap: 16px; }
+        details.prod {
+            background: var(--panel); border: 1px solid var(--line);
+            border-radius: var(--radius); overflow: hidden;
+            transition: border-color 0.25s ease, background 0.25s ease;
+        }
+        details.prod[open] { border-color: rgba(255,45,61,0.45); background: rgba(255,45,61,0.03); }
+        .prod > summary {
+            list-style: none; cursor: pointer;
+            display: grid; grid-template-columns: 44px 1fr auto; gap: 16px; align-items: center;
+            padding: 24px 26px;
+        }
+        .prod > summary::-webkit-details-marker { display: none; }
+        .prod .p-ic {
+            width: 44px; height: 44px; border-radius: 12px; font-size: 21px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,45,61,0.12); border: 1px solid rgba(255,45,61,0.3);
+        }
+        .prod .p-title { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .prod .p-tag { font-size: 11.5px; font-weight: 700; color: #4ade80; border: 1px solid rgba(74,222,128,0.4); border-radius: 999px; padding: 3px 9px; }
+        .prod .p-sub { display: block; color: var(--muted); font-size: 14.5px; font-weight: 400; margin-top: 4px; }
+        .prod .p-arrow {
+            width: 30px; height: 30px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; background: rgba(255,45,61,0.2); font-size: 16px; font-weight: 400;
+            transition: transform 0.3s var(--ease), background 0.3s ease;
+        }
+        .prod[open] .p-arrow { transform: rotate(45deg); background: var(--red); }
+        .prod-body { padding: 10px 26px 30px; border-top: 1px solid var(--line); }
+        .prod-body > p { color: #d8cfcd; font-size: 16px; max-width: 720px; margin: 14px 0 6px; }
+        .p-block { padding: 30px 0 10px; }
+        .p-block + .p-block { border-top: 1px solid var(--line); margin-top: 20px; }
+        @media (max-width: 640px) {
+            .prod > summary { grid-template-columns: 38px 1fr auto; gap: 12px; padding: 16px; }
+            .prod .p-ic { width: 38px; height: 38px; font-size: 18px; border-radius: 10px; }
+            .prod .p-title { font-size: 17px; }
+            .prod .p-sub { font-size: 13.5px; }
+            .prod-body { padding: 6px 16px 20px; }
+            .p-block { padding: 20px 0 6px; }
+        }
+
         /* КНОПКА ВНИЗУ ЭКРАНА НА ТЕЛЕФОНЕ */
         .sticky-cta {
             position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 70; display: none;
@@ -720,13 +762,9 @@
     </div>
     <nav class="chips" aria-label="Разделы страницы">
         <div class="wrap chips-inner" id="chips">
-            <a class="chip" href="#calc">Ваши потери</a>
-            <a class="chip" href="#who">Для кого</a>
-            <a class="chip" href="#next">ИИ-администратор</a>
-            <a class="chip" href="#how">Как работаем</a>
-            <a class="chip" href="#about">Что ещё делаю</a>
-            <a class="chip" href="#faq">Вопросы</a>
+            <a class="chip" href="#products">Продукты</a>
             <a class="chip" href="#path">Обо мне</a>
+            <a class="chip" href="#time">Сколько вложил</a>
             <a class="chip" href="#contact">Связь</a>
         </div>
     </nav>
@@ -737,39 +775,59 @@
     <section class="hero" id="top">
         <div class="hero-halo" aria-hidden="true"></div>
         <div class="wrap">
-            <div class="kicker reveal"><span class="dot"></span> ИИ-администратор для вашего бизнеса</div>
+            <div class="kicker reveal"><span class="dot"></span> ИИ-решения для бизнеса</div>
 
-            <h1 id="heroTitle">Пока менеджер спит, <span class="hot">клиенты уходят к конкурентам</span></h1>
+            <h1 id="heroTitle">Отдаю ИИ рутину, <span class="hot">на которой бизнес теряет деньги</span></h1>
 
-<p class="reveal">Привет, я Тимур. Внедряю ИИ в бизнес: оптимизирую процессы и снимаю с команды рутину.
-                ИИ берёт на себя повторяющиеся задачи, а люди остаются там, где без них не обойтись.</p>
-            <p class="hero-now reveal"><span>Сейчас</span> работаю над проектом <b>ИИ‑администратора</b>: он отвечает клиентам за секунды и сам записывает их, даже ночью и в выходные.</p>
+<p class="reveal">Привет, я Тимур. Собираю ИИ-продукты для бизнеса сам, от идеи до запуска:
+                администратор, который отвечает клиентам круглосуточно, видеоменю для кафе, сайты и автоматизация процессов.</p>
+            <p class="hero-now reveal"><span>Сейчас</span> главный продукт: <b>ИИ‑администратор</b> для загородных клубов.
+                Отвечает гостям за секунды и сам доводит до брони, даже ночью и в выходные.</p>
 
             <div class="actions reveal">
-                <a class="btn magnetic" href="#calc">Посчитать мои потери <span class="arrow">↓</span></a>
-                <a class="btn btn-ghost magnetic" href="https://t.me/timqaa17">Бесплатный разбор</a>
+                <a class="btn magnetic" href="#products">Смотреть продукты <span class="arrow">↓</span></a>
+                <a class="btn btn-ghost magnetic" href="https://t.me/timqaa17">Написать в Telegram</a>
             </div>
 
             <div class="stats two reveal">
-                <div class="stat"><b><em>24/7</em></b><span>без выходных, отпусков и больничных</span></div>
-                <a class="stat jump" href="#next"><b>Как он отвечает <em>↓</em></b><span>посмотреть переписку с клиентом</span></a>
+                <div class="stat"><b><em>700</em>+ часов</b><span>практики с конца августа, почти без выходных</span></div>
+                <a class="stat jump" href="#prod-admin"><b>ИИ-администратор <em>↓</em></b><span>готовый продукт, открыть папку</span></a>
             </div>
         </div>
     </section>
 
     <div class="marquee" aria-hidden="true">
         <div class="marquee-track">
-            <span>ИИ-администраторы</span><span>Оптимизация процессов</span><span>Автоматизация рутины</span>
-            <span>Сайты</span><span>Видео с ИИ</span><span>Экономия времени</span>
-            <span>ИИ-администраторы</span><span>Оптимизация процессов</span><span>Автоматизация рутины</span>
-            <span>Сайты</span><span>Видео с ИИ</span><span>Экономия времени</span>
+            <span>ИИ-администраторы</span><span>Видеоменю</span><span>Оптимизация процессов</span>
+            <span>Сайты</span><span>Видео с ИИ</span><span>Автоматизация рутины</span>
+            <span>ИИ-администраторы</span><span>Видеоменю</span><span>Оптимизация процессов</span>
+            <span>Сайты</span><span>Видео с ИИ</span><span>Автоматизация рутины</span>
         </div>
     </div>
 
-    <section id="calc">
+    <section id="products">
         <div class="wrap">
             <div class="sec-head reveal">
-                <div class="sec-num">01 / ВАШИ ПОТЕРИ</div>
+                <div class="sec-num">01 / ПРОДУКТЫ</div>
+                <h2>Что я делаю</h2>
+                <p>Готовые продукты, которые можно посмотреть и потрогать. Разверните нужный.</p>
+            </div>
+
+            <div class="prods">
+                <details class="prod" id="prod-admin">
+                    <summary>
+                        <span class="p-ic">✦</span>
+                        <span>
+                            <span class="p-title">ИИ-администратор <span class="p-tag">готовый продукт</span></span>
+                            <span class="p-sub">Отвечает клиентам за секунды, знает свободные даты и цены, сам доводит до брони. Внутри: демо-переписка, калькулятор потерь и условия работы.</span>
+                        </span>
+                        <span class="p-arrow">+</span>
+                    </summary>
+                    <div class="prod-body">
+    <div class="p-block" id="calc">
+        <div>
+            <div class="sec-head reveal">
+                <div class="sec-num">ВАШИ ПОТЕРИ</div>
                 <h2>Сколько денег вы теряете на заявках без ответа</h2>
                 <p>Возьмите цифры за прошлую неделю: сколько человек написали, скольким ответили в течение часа и сколько записались.</p>
             </div>
@@ -818,12 +876,12 @@
             </div>
             <div class="hook reveal"><a href="#who">Где именно теряются эти деньги, зависит от ниши. Найдите свою <span>↓</span></a></div>
         </div>
-    </section>
+    </div>
 
-    <section id="who">
-        <div class="wrap">
+    <div class="p-block" id="who">
+        <div>
             <div class="sec-head reveal">
-                <div class="sec-num">02 / ДЛЯ КОГО</div>
+                <div class="sec-num">ДЛЯ КОГО</div>
                 <h2>Узнаёте свой бизнес?</h2>
                 <p>ИИ-администратор нужен всем, кому клиенты пишут в мессенджеры и ждут быстрого ответа.</p>
             </div>
@@ -853,13 +911,13 @@
             <p class="niche-more reveal">Нет вашей ниши? Если клиенты пишут вам в Telegram или WhatsApp, это сработает и у вас.</p>
             <div class="hook reveal"><a href="#next">Теперь покажу, как ИИ-администратор возвращает этих клиентов <span>↓</span></a></div>
         </div>
-    </section>
+    </div>
 
-    <section id="next">
-        <div class="wrap">
+    <div class="p-block" id="next">
+        <div>
             <div class="sec-head reveal">
-                <div class="sec-num">03 / ИИ-АДМИНИСТРАТОР</div>
-                <h2>ИИ-администратор</h2>
+                <div class="sec-num">КАК ОН РАБОТАЕТ</div>
+                <h2>ИИ-администратор в деле</h2>
                 <p>Вот как он работает в переписке. Клиент сказал «дорого», а бот всё равно довёл его до брони.</p>
             </div>
 
@@ -919,12 +977,12 @@
             </div>
             <div class="hook reveal"><a href="#how">Как это появится у вас, без риска <span>↓</span></a></div>
         </div>
-    </section>
+    </div>
 
-    <section id="how">
-        <div class="wrap">
+    <div class="p-block" id="how">
+        <div>
             <div class="sec-head reveal">
-                <div class="sec-num">04 / КАК РАБОТАЕМ</div>
+                <div class="sec-num">КАК РАБОТАЕМ</div>
                 <h2>Как это появится у вас</h2>
                 <p>Четыре шага. Вы видите результат до того, как принимаете решение.</p>
             </div>
@@ -936,56 +994,14 @@
                 <div class="st reveal d4"><h3>Запуск и поддержка</h3><p>Подключаю к вашим каналам, слежу за работой, присылаю отчёты, дорабатываю ответы.</p></div>
             </div>
             <p class="safe reveal">✓ Решение о покупке вы принимаете после теста, когда уже видите результат.</p>
-            <div class="hook reveal"><a href="#about">Кроме ИИ-администратора, могу закрыть и другие задачи <span>↓</span></a></div>
-        </div>
-    </section>
-
-    <section id="about">
-        <div class="wrap">
-            <div class="sec-head reveal">
-                <div class="sec-num">05 / ЧТО ЕЩЁ ДЕЛАЮ</div>
-                <h2>Что ещё я делаю</h2>
-                <p>Беру рутину, на которой бизнес теряет деньги, и отдаю её ИИ. Всё собираю сам, от идеи до запуска.</p>
-            </div>
-
-            <div class="works">
-                <div class="work spot tilt reveal d1">
-                    <div class="shot s1"><span class="ic">✦</span>ИИ-администратор</div>
-                    <div class="work-body">
-                        <h3>Отвечает клиентам вместо менеджера</h3>
-                        <p>Пишет в мессенджерах круглые сутки, видит свободные даты и цены, а сложные вопросы передаёт живому человеку.</p>
-                    </div>
-                </div>
-                <div class="work spot tilt reveal d2">
-                    <div class="shot s2"><span class="ic">⚙</span>Оптимизация</div>
-                    <div class="work-body">
-                        <h3>Оптимизация процессов</h3>
-                        <p>Нахожу, где компания тратит часы на ручную работу: заявки, переписку, отчёты, и передаю это ИИ. Меньше рутины, меньше расходов.</p>
-                    </div>
-                </div>
-                <div class="work spot tilt reveal d1">
-                    <div class="shot s3"><span class="ic">◧</span>Сайты</div>
-                    <div class="work-body">
-                        <h3>Сайты, которые приводят клиентов</h3>
-                        <p>Сайт для компании брата, редизайн сайта дилера сельхозтехники. Быстро и удобно с телефона.</p>
-                    </div>
-                </div>
-                <div class="work spot tilt reveal d2">
-                    <div class="shot s4"><span class="ic">▶</span>Видео с ИИ</div>
-                    <div class="work-body">
-                        <h3>Рилсы и видео с ИИ</h3>
-                        <p>Видеоменю для кафе, ролики про свои проекты, ИИ-аватар. В Instagram показываю, как это делается.</p>
-                    </div>
-                </div>
-            </div>
             <div class="hook reveal"><a href="#faq">Остались вопросы? Собрал самые частые <span>↓</span></a></div>
         </div>
-    </section>
+    </div>
 
-    <section id="faq">
-        <div class="wrap">
+    <div class="p-block" id="faq">
+        <div>
             <div class="sec-head reveal">
-                <div class="sec-num">06 / ВОПРОСЫ</div>
+                <div class="sec-num">ВОПРОСЫ</div>
                 <h2>Частые вопросы</h2>
                 <p>То, о чём обычно спрашивают владельцы бизнеса перед стартом.</p>
             </div>
@@ -1023,6 +1039,63 @@
                         Доступ к переписке есть у вас.</div>
                 </details>
             </div>
+        </div>
+    </div>
+                    </div>
+                </details>
+
+                <details class="prod" id="prod-menu">
+                    <summary>
+                        <span class="p-ic">▶</span>
+                        <span>
+                            <span class="p-title">Видеоменю для кафе и ресторанов <span class="p-tag">кейс: кафе в Москве</span></span>
+                            <span class="p-sub">Гость сканирует QR-код на столе и видит, как выглядит блюдо, ещё до заказа.</span>
+                        </span>
+                        <span class="p-arrow">+</span>
+                    </summary>
+                    <div class="prod-body">
+                        <p>Сделал видеоменю для кафе «Утро в Сердце» в Москве: вместо обычного меню гость открывает страницу,
+                           где каждое блюдо показано живым роликом, и собирает заказ прямо с телефона.</p>
+                        <div class="feats">
+                            <div class="feat spot reveal d1"><span class="fi">🎬</span><h4>Ролики блюд</h4><p>Гость видит блюдо до заказа, а не представляет его по названию.</p></div>
+                            <div class="feat spot reveal d2"><span class="fi">📱</span><h4>Работает с телефона</h4><p>QR-код на столе, ничего устанавливать не нужно.</p></div>
+                            <div class="feat spot reveal d3"><span class="fi">🛒</span><h4>Онлайн-заказ</h4><p>Гость собирает заказ прямо в меню, без ожидания официанта.</p></div>
+                            <div class="feat spot reveal d4"><span class="fi">🔒</span><h4>По закону</h4><p>Документы и хранение данных оформлены по 152-ФЗ.</p></div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="prod" id="prod-sites">
+                    <summary>
+                        <span class="p-ic">◧</span>
+                        <span>
+                            <span class="p-title">Сайты, которые приводят клиентов</span>
+                            <span class="p-sub">Быстро, с плавными анимациями и удобной мобильной версией.</span>
+                        </span>
+                        <span class="p-arrow">+</span>
+                    </summary>
+                    <div class="prod-body">
+                        <p>Сайт для компании брата, редизайн сайта дилера сельхозтехники, эта страница тоже моя.
+                           Делаю так, чтобы клиент мог оставить заявку с телефона за минуту, а сайт не выглядел шаблонным.</p>
+                    </div>
+                </details>
+
+                <details class="prod" id="prod-opt">
+                    <summary>
+                        <span class="p-ic">⚙</span>
+                        <span>
+                            <span class="p-title">Оптимизация процессов</span>
+                            <span class="p-sub">Нахожу ручную работу, на которой компания теряет часы и деньги, и передаю её ИИ.</span>
+                        </span>
+                        <span class="p-arrow">+</span>
+                    </summary>
+                    <div class="prod-body">
+                        <p>Заявки, переписки, отчёты, напоминания: всё, что команда делает руками по кругу.
+                           На бесплатном разборе смотрю ваши процессы и показываю, что отдать ИИ в первую очередь и сколько это сэкономит.</p>
+                    </div>
+                </details>
+            </div>
+
             <div class="hook reveal"><a href="#path">А теперь коротко, кто я и почему мне можно доверить ваших клиентов <span>↓</span></a></div>
         </div>
     </section>
@@ -1030,9 +1103,9 @@
     <section id="path">
         <div class="wrap">
             <div class="sec-head reveal">
-                <div class="sec-num">07 / ОБО МНЕ</div>
+                <div class="sec-num">02 / ОБО МНЕ</div>
                 <h2>С чего начинал</h2>
-                <p>Ещё в августе я ничего не знал про ИИ и бизнес. Меньше чем за два месяца это стало главным делом моей жизни.</p>
+                <p>Ещё в августе я ничего не знал про ИИ и бизнес. За три месяца это стало главным делом моей жизни.</p>
             </div>
 
             <div class="timeline" id="timeline">
@@ -1050,9 +1123,8 @@
                     <div class="when">Сентябрь</div>
                     <h3>Месяц учёбы по 8+ часов каждый день</h3>
                     <p>Весь сентябрь разбирался, как работают нейросети и как на них строить продукты. Учился общаться с клиентами:
-                       писать первым, не бояться отказов, объяснять пользу простыми словами.</p>
-                    <p>Тогда же сделал первый проект, АвтоПост: Telegram-бот для продавцов авто из Кореи.
-                       Сам поднял сервер и разобрался с законом о персональных данных. В нём больше 140 версий кода.</p>
+                       писать первым, не бояться отказов, объяснять пользу простыми словами. Сам поднял сервер
+                       и разобрался с законом о персональных данных.</p>
                     <p class="quote">Главный вывод: сделать продукт мало, его ещё надо продать.</p>
                 </div>
                 <div class="milestone spot reveal" style="position:relative">
@@ -1076,7 +1148,7 @@
                 </div>
                 <div class="milestone spot reveal" style="position:relative">
                     <div class="pin">4</div>
-                    <div class="when">Октябрь</div>
+                    <div class="when">Октябрь, ноябрь</div>
                     <h3>Больше 6 проектов</h3>
                     <p>Сайт для компании брата, редизайн сайта дилера сельхозтехники, видеоменю для кофейни, ролики с ИИ-аватаром.
                        На каждом проекте понимал всё лучше: бизнесу нужен не просто сайт, а то, что приводит и удерживает клиентов.</p>
@@ -1086,19 +1158,19 @@
                     <div class="when">Сейчас</div>
                     <h3>47 часов ждал ответа и взялся за ИИ-администратора</h3>
                     <p>Бронировал домик в загородном клубе и почти двое суток ждал ответа на простой вопрос.
-                       Подумал, сколько клиентов они так теряют каждый день. Теперь развиваю ИИ-администратора,
-                       который отвечает за секунды и сам доводит клиента до брони.</p>
+                       Подумал, сколько клиентов они так теряют каждый день. Теперь это готовый продукт:
+                       бот собран и работает на сервере, а я показываю демо загородным клубам Москвы и области.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section>
+    <section id="time">
         <div class="wrap">
             <div class="sec-head reveal">
-                <div class="sec-num">08 / ВРЕМЯ</div>
+                <div class="sec-num">03 / ВРЕМЯ</div>
                 <h2>Сколько в это вложил</h2>
-                <p>С 26 августа по сегодня почти без выходных, по 8–9 часов в день. Это больше 500 часов, как три месяца полной рабочей недели.</p>
+                <p>С 26 августа по середину ноября почти без выходных, по 8–9 часов в день. Это больше 700 часов, как четыре месяца полной рабочей недели.</p>
             </div>
 
             <div class="time-grid">
@@ -1108,11 +1180,11 @@
                 </div>
                 <div class="time-card spot reveal d2">
                     <div class="big"><em data-count="8">8</em>+ часов в день</div>
-                    <p>Весь сентябрь и октябрь. Днём пары в МИРЭА, остальное время проекты, клиенты и учёба.</p>
+                    <p>Весь сентябрь, октябрь и ноябрь. Днём пары в МИРЭА, остальное время проекты, клиенты и учёба.</p>
                 </div>
                 <div class="time-card spot reveal d3">
-                    <div class="big"><em data-count="500">500</em>+ часов</div>
-                    <p>Всего за неполные два месяца. Курсы, книги, YouTube и подкасты, но больше всего учит то, что делаю руками.</p>
+                    <div class="big"><em data-count="700">700</em>+ часов</div>
+                    <p>Всего за неполные три месяца. Курсы, книги, YouTube и подкасты, но больше всего учит то, что делаю руками.</p>
                 </div>
             </div>
         </div>
@@ -1136,7 +1208,7 @@
     <div class="wrap">
         <div class="contact-grid">
             <div class="reveal">
-                <div class="sec-num">09 / БЕСПЛАТНЫЙ РАЗБОР</div>
+                <div class="sec-num">04 / БЕСПЛАТНЫЙ РАЗБОР</div>
                 <h2>Узнайте, где вы <em>теряете заявки</em></h2>
                 <p>Напишите мне в Telegram пару слов о своём бизнесе. Разберём, где уходят клиенты, сколько это стоит
                    и как ИИ закроет эту дыру. Бесплатно и ни к чему не обязывает.</p>
@@ -1146,7 +1218,7 @@
             <div class="contact-links reveal d2">
                 <a class="contact-link" href="https://t.me/timqaa17">@timqaa17 <span>Telegram</span></a>
                 <a class="contact-link" href="https://instagram.com/timur.v.ai">timur.v.ai <span>Instagram</span></a>
-                <a class="contact-link" href="#next">ИИ-администратор <span>подробнее выше</span></a>
+                <a class="contact-link" href="#prod-admin">ИИ-администратор <span>готовый продукт</span></a>
             </div>
         </div>
 
@@ -1303,6 +1375,14 @@
         })(performance.now());
     }
     if (lossEl) { cEls.forEach(function (el) { el.addEventListener("input", calc); }); calc(); }
+
+    // ссылки на «папки» продуктов открывают их
+    document.querySelectorAll('a[href="#prod-admin"], a[href="#prod-menu"], a[href="#prod-sites"], a[href="#prod-opt"]').forEach(function (a) {
+        a.addEventListener("click", function () {
+            var d = document.querySelector(a.getAttribute("href"));
+            if (d) d.open = true;
+        });
+    });
 
     // меню: подсветка текущего раздела
     var chips = Array.prototype.slice.call(document.querySelectorAll(".chip"));
